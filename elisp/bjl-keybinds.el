@@ -57,6 +57,8 @@
     "oc" '("Capture" . org-capture)
     "oN" '("Notes" . (lambda () (interactive) (find-file "~/org/Notes.org"))) 
 
+    "p" '(:ignore t :which-key "Project")
+
 
     "s" '(:ignore t :which-key "Shell")
     "so" '("eShell" . eshell)
