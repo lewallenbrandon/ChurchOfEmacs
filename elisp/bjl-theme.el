@@ -2,12 +2,12 @@
 
 (use-package all-the-icons)
 
-(use-package doom-themes
-  :init (load-theme 'doom-palenight t))
+;;(use-package doom-themes
+;;  :init (load-theme 'doom-palenight t))
 
-;;(add-to-list 'load-path "~/.emacs.d/modus-themes")
-;;(require 'modus-themes)
-;;(load-theme 'modus-vivendi-tinted :no-confirm)
+(add-to-list 'load-path "~/.emacs.d/modus-themes")
+(require 'modus-themes)
+(load-theme 'modus-vivendi-tinted :no-confirm)
 
 (use-package doom-modeline
   :init (doom-modeline-mode 1)

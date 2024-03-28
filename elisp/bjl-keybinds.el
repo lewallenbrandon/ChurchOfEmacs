@@ -23,14 +23,11 @@
     "er" '("Region" . eval-region)
     "es" '("Sexp" . eval-last-sexp)
 
-    "k" '(:ignore t :which-key "Kill")
-    "ke" '("Emacs" . kill-emacs)
-
     "f" '(:ignore t :which-key "Files")
     "fo" '("Open" . counsel-find-file) 
 
     "g" '(:ignore t :which-key "Git")
-    "gs" '("Open" . magit) 
+    "go" '("Open" . magit) 
 
     "h" '(:ignore t :which-key "Help" ) 
     "hv" '("Describe Variable" . counsel-describe-variable)
@@ -48,6 +45,14 @@
     "hCp" '("Programming" . (lambda () (interactive) (find-file "~/.emacs.d/elisp/bjl-programming.el"))) 
     "hCt" '("Theme" . (lambda () (interactive) (find-file "~/.emacs.d/elisp/bjl-theme.el"))) 
     "hCu" '("Utility" . (lambda () (interactive) (find-file "~/.emacs.d/elisp/bjl-utility-packages.el"))) 
+
+    "k" '(:ignore t :which-key "Kill")
+    "ke" '("Emacs" . kill-emacs)
+    "kb" '(:ignore t :which-key "Buffers")
+    "kba" '("Menu" . kill-some-buffers)
+    "kbc" '("Current" . kill-this-buffer)
+    "kbm" '("Menu" . kill-buffer)
+    "kbo" '("Org Agenda" . org-agenda-kill-all-agenda-buffers)
     
     "m" '(:ignore t :which-key "Marks")
     "mm" '("Menu" . counsel-evil-marks)
@@ -58,8 +63,8 @@
     "or" '("Refresh Agenda" . refresh-org-agenda-files) 
     "oN" '("Notes" . (lambda () (interactive) (find-file "~/org/Notes.org"))) 
     "ol" '(:ignore t :which-key "Links")
-    "oli" '("Notes" . org-insert-link) 
-    "ols" '("Notes" . org-store-link) 
+    "oli" '("Insert" . org-insert-link) 
+    "ols" '("Store" . org-store-link) 
 
     "p" '(:ignore t :which-key "Project")
     "pf" '("Find File" . counsel-projectile) 
@@ -70,7 +75,6 @@
     "s" '(:ignore t :which-key "Shell")
     "so" '("eShell" . eshell)
     "sc" '("Command". eshell-command)
-
 
     "t" '(:ignore t :which-key "Tabs" )
     "to" '("Open Tab" . tab-new )
