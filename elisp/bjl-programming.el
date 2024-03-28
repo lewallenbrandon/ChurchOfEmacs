@@ -76,6 +76,7 @@
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
+(add-hook 'after-init-hook 'global-company-mode)
 (use-package projectile
   :diminish projectile-mode
   :config (projectile-mode)
@@ -100,6 +101,7 @@
 ;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
 (use-package forge
   :after magit)
+(global-diff-hl-mode)
 
 
 

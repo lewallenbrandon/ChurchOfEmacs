@@ -28,8 +28,8 @@
 (column-number-mode)
 
 ;; Set frame transparency
-(set-frame-parameter (selected-frame) 'alpha bjl/frame-transparency)
-(add-to-list 'default-frame-alist `(alpha . ,bjl/frame-transparency))
+;;(set-frame-parameter (selected-frame) 'alpha bjl/frame-transparency)
+;;(add-to-list 'default-frame-alist `(alpha . ,bjl/frame-transparency))
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
@@ -49,9 +49,6 @@
 (setq auto-save-file-name-transforms '((".*" "~/.emacs-saves/" t)))
 (setq backup-directory-alist '(("." . "~/.emacs-backups/")))
 (setq initial-major-mode 'org-mode)
-
-(require 'evil-fringe-mark)
-(global-evil-fringe-mark-mode)
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))

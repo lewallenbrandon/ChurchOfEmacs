@@ -26,7 +26,6 @@
   (setq org-default-notes-file "~/org/Notes.org")
 
   (setq org-agenda-files (directory-files-recursively "~/org" "org$"))
-
   (require 'org-habit)
   (require 'doct)
   (add-to-list 'org-modules 'org-habit)
@@ -80,19 +79,19 @@
   (defvar code_snippet_template (concat org-templates "code_snippet.txt"))
 
   (setq org-capture-templates
-	(doct '(("Programming" :keys "p"
+	(doct `(("Programming" :keys "p"
 		 :children
 		 (("Outline"
 		   :keys "o"
 		   :function (lambda () (find-file (capture-report-date-file org-notes)))
 		   :type plain
-		   :template-file project_outline_template)
+		   :template-file  ,project_outline_template)
 		  ("Code Snippet"
 		   :keys "c"
 		   :file (lambda () (place-snippet-new))
 		   :function (lambda () (let ((org-goto-interface 'outline-path-completion)) (org-goto)))
 		   :type plain
-		   :template-file code_snippet_template)
+		   :template-file ,code_snippet_template)
 		 )
 		 ))
 	      )

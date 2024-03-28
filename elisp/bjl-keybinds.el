@@ -11,7 +11,6 @@
     :global-prefix "C-SPC")
   (bjl/leader-keys
     "<SPC>" '("Counsel-M-x" . counsel-M-x)
-    "TAB" '(other-window 1 nil 1 :which-key "Other Window" )
     
     "b" '(:ignore t :which-key "Buffers" )
     "bm" '("Menu Buffer" . counsel-switch-buffer)
@@ -54,8 +53,9 @@
     "mm" '("Menu" . counsel-evil-marks)
 
     "o" '(:ignore t :which-key "Org")
-    "oc" '("Agenda" . org-agenda)
+    "oa" '("Agenda" . org-agenda)
     "oc" '("Capture" . org-capture)
+    "or" '("Refresh Agenda" . refresh-org-agenda-files) 
     "oN" '("Notes" . (lambda () (interactive) (find-file "~/org/Notes.org"))) 
     "ol" '(:ignore t :which-key "Links")
     "oli" '("Notes" . org-insert-link) 
@@ -113,6 +113,18 @@
   (evil-mode 1)
   (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
 
+  (defun split-window-vertically-and-focus ()
+    "Split Window Vertically and focus"
+    (interactive)
+    (evil-window-vsplit)
+    (windmove-right))
+
+  (defun split-window-horizontally-and-focus ()
+    "Split Window Vertically and focus"
+    (interactive)
+    (evil-window-split)
+    (windmove-down))
+
   ;; Use visual line motions even outside of visual-line-mode buffers
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
@@ -124,6 +136,7 @@
   :after evil
   :config
   (evil-collection-init))
+
 
 (use-package evil-org
   :after (evil org)
@@ -145,8 +158,5 @@
   (setq which-key-idle-secondary-delay 0)
   (which-key-mode))
 
-;; TODO Change the keybinding
-(use-package evil-nerd-commenter
-  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 
 (provide 'bjl-keybinds)

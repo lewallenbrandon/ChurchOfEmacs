@@ -8,33 +8,16 @@
   (set-face-attribute 'org-level-4 nil :height 1.4)
   (set-face-attribute 'org-level-5 nil :height 1.2))
 
-(defun split-window-vertically-and-focus ()
-  "Split Window Vertically and focus"
-  (interactive)
-  (evil-window-vsplit)
-  (windmove-right))
-
-(defun split-window-horizontally-and-focus ()
-  "Split Window Vertically and focus"
-  (interactive)
-  (evil-window-split)
-  (windmove-down))
-
-(defun place-snippet ()
-  (interactive)
-  (let ((file-list (directory-files-recursively "~/org" "org$")))
-    (if file-list
-	(let ((chosen-file (completing-read "Choose file: " file-list nil t)))
-	  (set-buffer (org-capture-target-buffer chosen-file))
-	  (goto-char (point-max)))
-      (message "No files found in specified directory."))))
+(defun refresh-org-agenda-files ()
+   (interactive)
+   (setq org-agenda-files (directory-files-recursively "~/org" "org$")))
 
 (defun place-snippet-new ()
   (interactive)
   (let ((file-list (directory-files-recursively "~/org" "org$")))
     (if file-list
 	(let ((chosen-file (completing-read "Choose file: " file-list nil t)))
-	  (message "%s" chosen-file)
+	  (message "%s" chosen-file))
       (message "No files found in specified directory."))))
 
 (defun get-value-from-extension ()
