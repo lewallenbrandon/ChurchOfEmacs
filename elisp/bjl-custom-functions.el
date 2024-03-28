@@ -29,6 +29,14 @@
 	  (goto-char (point-max)))
       (message "No files found in specified directory."))))
 
+(defun place-snippet-new ()
+  (interactive)
+  (let ((file-list (directory-files-recursively "~/org" "org$")))
+    (if file-list
+	(let ((chosen-file (completing-read "Choose file: " file-list nil t)))
+	  (message "%s" chosen-file)
+      (message "No files found in specified directory."))))
+
 (defun get-value-from-extension ()
   "Return a value based on the extension of the current buffer's file."
   (interactive)
@@ -39,5 +47,11 @@
      ((string-equal extension "org") "org")
      ((string-equal extension "py") "python")
      )))
+
+(defun open-new-project-file ()
+  (interactive)
+   (let ((fpath (read-file-name "File name: "
+				"~/org/"
+				nil nil nil)))))
 
 (provide 'bjl-custom-functions)

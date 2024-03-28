@@ -54,11 +54,18 @@
     "mm" '("Menu" . counsel-evil-marks)
 
     "o" '(:ignore t :which-key "Org")
+    "oc" '("Agenda" . org-agenda)
     "oc" '("Capture" . org-capture)
     "oN" '("Notes" . (lambda () (interactive) (find-file "~/org/Notes.org"))) 
+    "ol" '(:ignore t :which-key "Links")
+    "oli" '("Notes" . org-insert-link) 
+    "ols" '("Notes" . org-store-link) 
 
     "p" '(:ignore t :which-key "Project")
-
+    "pf" '("Find File" . counsel-projectile) 
+    "pg" '("Grep" . counsel-projectile-rg) 
+    "pr" '("Replace" . projectile-replace) 
+    "pS"  '("Switch Project" . counsel-projectile-switch-project) 
 
     "s" '(:ignore t :which-key "Shell")
     "so" '("eShell" . eshell)
