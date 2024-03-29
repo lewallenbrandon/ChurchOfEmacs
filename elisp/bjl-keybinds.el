@@ -28,6 +28,8 @@
 
     "g" '(:ignore t :which-key "Git")
     "go" '("Open" . magit) 
+    
+
 
     "h" '(:ignore t :which-key "Help" ) 
     "hv" '("Describe Variable" . counsel-describe-variable)
