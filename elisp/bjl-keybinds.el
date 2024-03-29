@@ -27,7 +27,11 @@
     "fo" '("Open" . counsel-find-file) 
 
     "g" '(:ignore t :which-key "Git")
-    "go" '("Open" . magit) 
+    "gb" '("Blame" . magit-blame)
+    "gd" '("Dispatch" . magit-dispatch)
+    "gf" '("File Git" . magit-file-dispatch)
+    "go" '("Open Git" . magit) 
+    "gp" '("Project Git" . magit-project-status)
 
     "h" '(:ignore t :which-key "Help" ) 
     "hv" '("Describe Variable" . counsel-describe-variable)
