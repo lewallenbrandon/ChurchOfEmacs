@@ -34,7 +34,7 @@
     "hf" '("Describe Function" . counsel-describe-function)
     "hc" '("Describe Command" . helpful-command )
     "hk" '("Describe Key" . helpful-key )
-    "hk" '("Describe Mode" . describe-mode)
+    "hm" '("Describe Mode" . describe-mode)
     "hp" '("Describe Package" . describe-package)
     "hr" '("Repeat Cmd" . repeat-complex-command)
     "hC" '(:ignore t :which-key "Config Files" )
