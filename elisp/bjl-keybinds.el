@@ -24,6 +24,13 @@
     "er" '("Region" . eval-region)
     "es" '("Sexp" . eval-last-sexp)
 
+    
+    "d" '(:ignore t :which-key "Dired") ;; Directory
+    "dj" '("Jump" . delete-file) 
+    "do" '("Open" . counsel-find-file) 
+    "dp" '("Project" . projectile-dired)
+
+
     "f" '(:ignore t :which-key "Files")
     "fc" '("Copy" . copy-file) 
     "fd" '("Delete" . delete-file) 
