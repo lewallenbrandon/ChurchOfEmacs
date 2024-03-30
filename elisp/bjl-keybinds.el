@@ -18,13 +18,17 @@
     "bn" '("Next Buffer" . next-buffer )
 
     "e" '(:ignore t :which-key "Evaluate")
+    "eb" '("Buffer" . eval-buffer)
     "ed" '("Defun" . eval-defun)
     "ee" '("Expression" . eval-expression)
     "er" '("Region" . eval-region)
     "es" '("Sexp" . eval-last-sexp)
 
     "f" '(:ignore t :which-key "Files")
+    "fc" '("Copy" . copy-file) 
+    "fd" '("Delete" . delete-file) 
     "fo" '("Open" . counsel-find-file) 
+    "fr" '("Rename" . rename-file) 
 
     "g" '(:ignore t :which-key "Git")
     "gb" '("Blame" . magit-blame)
@@ -37,7 +41,7 @@
     "hv" '("Describe Variable" . counsel-describe-variable)
     "hf" '("Describe Function" . counsel-describe-function)
     "hc" '("Describe Command" . helpful-command )
-    "hk" '("Describe Key" . helpful-key )
+    "hk" '("Describe Key" . helpful-key)
     "hm" '("Describe Mode" . describe-mode)
     "hp" '("Describe Package" . describe-package)
     "hr" '("Repeat Cmd" . repeat-complex-command)
@@ -51,12 +55,12 @@
     "hCu" '("Utility" . (lambda () (interactive) (find-file "~/.emacs.d/elisp/bjl-utility-packages.el"))) 
 
     "k" '(:ignore t :which-key "Kill")
-    "ke" '("Emacs" . kill-emacs)
     "kb" '(:ignore t :which-key "Buffers")
     "kba" '("Menu" . kill-some-buffers)
     "kbc" '("Current" . kill-this-buffer)
     "kbm" '("Menu" . kill-buffer)
     "kbo" '("Org Agenda" . org-agenda-kill-all-agenda-buffers)
+    "ke" '("Emacs" . kill-emacs)
     
     "m" '(:ignore t :which-key "Marks")
     "mm" '("Menu" . counsel-evil-marks)
