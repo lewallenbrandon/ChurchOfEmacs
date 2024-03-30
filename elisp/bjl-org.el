@@ -23,9 +23,9 @@
   (setq org-export-coding-system 'utf-8)
   (setq org-log-done 'time)
   (setq org-log-into-drawer t)
-  (setq org-default-notes-file "~/org/Notes.org")
+  `(setq org-default-notes-file ,org-personal-notes)
 
-  (setq org-agenda-files (directory-files-recursively "~/org" "org$"))
+  `(setq org-agenda-files (directory-files-recursively ,org-dir "org$"))
   (require 'org-habit)
   (require 'doct)
   (add-to-list 'org-modules 'org-habit)
@@ -56,42 +56,22 @@
 
   (with-eval-after-load 'org (global-org-modern-mode))
 
-  (defvar org-templates "~/org_templates/")
-  (defvar org-notes "~/org/")
-
   (defun capture-report-date-file (path) (let ((name (read-string "Name: "))) (expand-file-name (format "%s.org"  name) path)))
-
-  ;; Not using Doct
-  ;;(setq org-capture-templates
-  ;;	`(("c" "Code" entry (function place-snippet) (file ,(concat org-templates "code_note.txt")))
-  ;;        ("O" "Outline" plain (function ,(lambda () (find-file (capture-report-date-file "~/org/")))) (file ,(concat org-templates "project_outline.txt")))))
-		 ;;("Code Snippet" :keys "c" :type entry :tempalte-file `(file ,(concat org-templates "code_snippet.txt")))
-
-;;  (setq org-capture-templates
-;;	(doct `(("Programming" :keys "p"
-;;		 :file ,(lambda () (find-file (capture-report-date-file "~/org/"))) :children
-;;		 (("Outline" :keys "o" :type plain :template-file "~/org_templates/project_outline.txt"))
-;;		 ))
-;;	      )
-;;	)
-
-  (defvar project_outline_template (concat org-templates "project_outline.txt"))
-  (defvar code_snippet_template (concat org-templates "code_snippet.txt"))
 
   (setq org-capture-templates
 	(doct `(("Programming" :keys "p"
 		 :children
 		 (("Outline"
 		   :keys "o"
-		   :function (lambda () (find-file (capture-report-date-file org-notes)))
+		   :function (lambda () (find-file (capture-report-date-file org-dir)))
 		   :type plain
-		   :template-file  ,project_outline_template)
+		   :template-file  ,org-templates-project-outline)
 		  ("Code Snippet"
 		   :keys "c"
 		   :file (lambda () (place-snippet-new))
 		   :function (lambda () (let ((org-goto-interface 'outline-path-completion)) (org-goto)))
 		   :type plain
-		   :template-file ,code_snippet_template)
+		   :template-file ,org-templates-code-snippet)
 		 )
 		 ))
 	      )

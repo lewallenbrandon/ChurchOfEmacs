@@ -88,4 +88,4 @@
   (evil-collection-define-key 'normal 'dired-mode-map
     "H" 'dired-hide-dotfiles-mode))
 
-(provide 'bjl-utility-packages)
+(provide 'bjl-utilities)

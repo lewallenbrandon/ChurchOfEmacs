@@ -14,4 +14,4 @@
 
 
 
-(provide 'bjl-initialize) 
+(provide 'bjl-startup) 
