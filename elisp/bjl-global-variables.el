@@ -22,5 +22,6 @@
 (defvar org-templates-code-snippet (concat org-templates-dir "code_snippet.txt"))
 (defvar org-templates-project-outline (concat org-templates-dir "project_outline.txt"))
  
+(defvar org-exports-dir "~/org_exports/")
 
 (provide 'bjl-global-variables)

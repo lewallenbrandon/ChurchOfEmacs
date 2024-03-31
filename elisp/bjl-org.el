@@ -28,6 +28,7 @@
   `(setq org-agenda-files (directory-files-recursively ,org-dir "org$"))
   (require 'org-habit)
   (require 'doct)
+  (require 'ox-md)
   (add-to-list 'org-modules 'org-habit)
   (setq org-habit-graph-column 60)
 
@@ -98,6 +99,16 @@
     ;; Dynamic scoping to the rescue
     (let ((org-confirm-babel-evaluate nil))
       (org-babel-tangle))))
+
+;; I prefer the exports to go to its own subdirectory
+(defun org-export-output-file-name-modified (orig-fun extension &optional subtreep pub-dir)
+  (unless pub-dir
+    (setq pub-dir "~/org_exports/")
+    (unless (file-directory-p pub-dir)
+      (make-directory pub-dir)))
+  (apply orig-fun extension subtreep pub-dir nil))
+(advice-add 'org-export-output-file-name :around #'org-export-output-file-name-modified)
+
 
 (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'bjl/org-babel-tangle-config)))
 

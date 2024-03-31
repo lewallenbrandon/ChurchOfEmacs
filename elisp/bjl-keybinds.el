@@ -25,10 +25,9 @@
     "es" '("Sexp" . eval-last-sexp)
 
     "d" '(:ignore t :which-key "Dired") ;; Directory
-    "dj" '("Jump" . delete-file) 
-    "do" '("Open" . counsel-find-file) 
+    "dj" '("Jump" . dired-jump) 
+    "do" '("Open" . dired) 
     "dp" '("Project" . projectile-dired)
-
 
     "f" '(:ignore t :which-key "Files")
     "fc" '("Copy" . copy-file) 
@@ -80,8 +79,13 @@
     "o" '(:ignore t :which-key "Org")
     "oa" '("Agenda" . org-agenda)
     "oc" '("Capture" . org-capture)
+    "oe" '("Export" . org-export-dispatch)
+    "oF" '(:ignore t :which-key "Files")
+    "oFa" `("Agenda" . (lambda () (interactive) (dired ,org-dir)))
+    "oFe" `("Exports" . (lambda () (interactive) (dired ,org-exports-dir)))
+    "oFp" `("Personal" . (lambda () (interactive) (find-file ,org-personal-notes))) 
+    "oFt" `("Templates" . (lambda () (interactive) (dired ,org-templates-dir))) 
     "or" '("Refresh Agenda" . refresh-org-agenda-files) 
-    "oN" `("Personal" . (lambda () (interactive) (find-file ,org-personal-notes))) 
     "ol" '(:ignore t :which-key "Links")
     "oli" '("Insert" . org-insert-link) 
     "ols" '("Store" . org-store-link) 
