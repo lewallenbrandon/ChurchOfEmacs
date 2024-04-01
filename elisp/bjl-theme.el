@@ -28,4 +28,9 @@
 
 (load-theme 'modus-vivendi-tinted :no-confirm)
 
+(unless (display-graphic-p)
+  (require 'evil-terminal-cursor-changer)
+  (evil-terminal-cursor-changer-activate))
+
+
 (provide 'bjl-theme)

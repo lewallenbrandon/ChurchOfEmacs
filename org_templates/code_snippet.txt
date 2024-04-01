@@ -6,5 +6,8 @@
  %i
  #+END_SRC
 
- Location: [[%F::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos (region-beginning))))][%F]] 
+ File: [[file:%F][%F]] 
+
  Line Numbers: %(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos (region-beginning)))) - %(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos (region-end))))
+
+ Link To File and Line: [[file:%F::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos (region-beginning))))][%F]] 

@@ -52,18 +52,7 @@
     "hr" '("Repeat Cmd" . repeat-complex-command)
     "hC" '(:ignore t :which-key "Config Files" )
     "hCi" `("init.el" . (lambda () (interactive) (find-file ,dotemacs-init))) 
-    "hCc" `("Custom Functions" . `(lambda () (interactive) (find-file ,dotemacs-elisp-custom-functions))) 
-    "hCd" `("Defaults" . (lambda () (interactive) (find-file ,dotemacs-elisp-defaults))) 
-    "hCF" `("Finalize" . (lambda () (interactive) (find-file ,dotemacs-elisp-finalize))) 
-    "hCg" `("Global Vars" . (lambda () (interactive) (find-file ,dotemacs-elisp-global-variables))) 
-    "hCk" `("Keybindings" . (lambda () (interactive) (find-file ,dotemacs-elisp-keybinds))) 
-    "hCo" `("Org" . (lambda () (interactive) (find-file ,dotemacs-elisp-org))) 
-    "hCp" `("Package Mgmt" . (lambda () (interactive) (find-file ,dotemacs-elisp-package-management))) 
-    "hCp" `("Programming" . (lambda () (interactive) (find-file ,dotemacs-elisp-programming))) 
-    "hCS" `("Startup" . (lambda () (interactive) (find-file ,dotemacs-elisp-startup))) 
-    "hCt" `("Terminal" . (lambda () (interactive) (find-file ,dotemacs-elisp-terminal))) 
-    "hCT" `("Theme" . (lambda () (interactive) (find-file ,dotemacs-elisp-themes))) 
-    "hCu" `("Utility" . (lambda () (interactive) (find-file ,dotemacs-elisp-utilities))) 
+    "hCe" `("Elisp Dir" . (lambda () (interactive) (dired ,dotemacs-elisp-dir)))
 
     "k" '(:ignore t :which-key "Kill")
     "kb" '(:ignore t :which-key "Buffers")
@@ -84,8 +73,8 @@
     "oFa" `("Agenda" . (lambda () (interactive) (dired ,org-dir)))
     "oFe" `("Exports" . (lambda () (interactive) (dired ,org-exports-dir)))
     "oFp" `("Personal" . (lambda () (interactive) (find-file ,org-personal-notes))) 
+    "oFr" '("Refresh Agenda" . refresh-org-agenda-files) 
     "oFt" `("Templates" . (lambda () (interactive) (dired ,org-templates-dir))) 
-    "or" '("Refresh Agenda" . refresh-org-agenda-files) 
     "ol" '(:ignore t :which-key "Links")
     "oli" '("Insert" . org-insert-link) 
     "ols" '("Store" . org-store-link) 
@@ -156,7 +145,6 @@
   ;; Use visual line motions even outside of visual-line-mode buffers
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
-
   (evil-set-initial-state 'messages-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal))
 
@@ -174,10 +162,6 @@
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 
-(unless (display-graphic-p)
-  (require 'evil-terminal-cursor-changer)
-  (evil-terminal-cursor-changer-activate))
-
 (use-package which-key
   :defer 0
   :diminish which-key-mode
@@ -186,5 +170,8 @@
   (setq which-key-idle-secondary-delay 0)
   (which-key-mode))
 
+(use-package drag-stuff)
+(define-key evil-visual-state-map (kbd "K") 'drag-stuff-up)
+(define-key evil-visual-state-map (kbd "J") 'drag-stuff-down)
 
 (provide 'bjl-keybinds)

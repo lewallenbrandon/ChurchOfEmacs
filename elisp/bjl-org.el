@@ -23,6 +23,7 @@
   (setq org-export-coding-system 'utf-8)
   (setq org-log-done 'time)
   (setq org-log-into-drawer t)
+  (setq org-export-with-broken-links 1)
   `(setq org-default-notes-file ,org-personal-notes)
 
   `(setq org-agenda-files (directory-files-recursively ,org-dir "org$"))
@@ -71,7 +72,7 @@
 		   :keys "c"
 		   :file (lambda () (place-snippet-new))
 		   :function (lambda () (let ((org-goto-interface 'outline-path-completion)) (org-goto)))
-		   :type plain
+		   :type entry
 		   :template-file ,org-templates-code-snippet)
 		 )
 		 ))
