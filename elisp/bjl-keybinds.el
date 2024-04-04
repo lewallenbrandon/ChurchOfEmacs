@@ -8,7 +8,7 @@
   (general-create-definer bjl/leader-keys
     :keymaps '(normal insert visual emacs)
     :prefix "SPC"
-    :global-prefix "C-SPC")
+    :global-prefix "C-M-SPC")
   (bjl/leader-keys
     "<SPC>" '("Counsel-M-x" . counsel-M-x)
     
@@ -78,6 +78,9 @@
     "ol" '(:ignore t :which-key "Links")
     "oli" '("Insert" . org-insert-link) 
     "ols" '("Store" . org-store-link) 
+    "oo" '("Outline" . counsel-outline)
+    "on" '(:ignore t :which-key "Navigation")
+    "or" '("Refile" . org-refile)
 
     "p" '(:ignore t :which-key "Project")
     "pf" '("Find File" . counsel-projectile) 
@@ -98,15 +101,16 @@
 
     "u" '(:ignore t :which-key "Utilities" )
     "uk" '("Kill Ring Paste" . yank-pop)
+    "uz" '("Zoom In/Out" . hydra-text-scale/body)
 
     "w" '(:ignore t :which-key "Windows")
     "wv" '("Vertical Split" . split-window-vertically-and-focus)
     "wh" '("Horizontal Split" . split-window-horizontally-and-focus)
     "wx" '("Close Window" . evil-window-delete)
+
+
     )
 
-  (bjl/leader-keys
-    "ts" '(hydra-text-scale/body :which-key "scale text"))
 
 
   (general-create-definer bjl/global-keys

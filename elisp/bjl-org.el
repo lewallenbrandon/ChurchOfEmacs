@@ -54,16 +54,15 @@
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
-     (python . t)))
+     (python . t)
+     (shell . t)))
 
   (with-eval-after-load 'org (global-org-modern-mode))
 
   (defun capture-report-date-file (path) (let ((name (read-string "Name: "))) (expand-file-name (format "%s.org"  name) path)))
 
   (setq org-capture-templates
-	(doct `(("Programming" :keys "p"
-		 :children
-		 (("Outline"
+	(doct `(("Outline"
 		   :keys "o"
 		   :function (lambda () (find-file (capture-report-date-file org-dir)))
 		   :type plain
@@ -74,8 +73,12 @@
 		   :function (lambda () (let ((org-goto-interface 'outline-path-completion)) (org-goto)))
 		   :type entry
 		   :template-file ,org-templates-code-snippet)
+		  ("Minimal"
+		   :keys "m"
+		   :function (lambda () (find-file (capture-report-date-file org-dir)))
+		   :type plain
+		   :template-file ,org-templates-minimal)
 		 )
-		 ))
 	      )
 	)
 
@@ -91,15 +94,9 @@
 
   (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-  (add-to-list 'org-structure-template-alist '("py" . "src python")))
-
-;; Automatically tangle our Emacs.org config file when we save it
-(defun bjl/org-babel-tangle-config ()
-  (when (string-equal (file-name-directory (buffer-file-name))
-                      (expand-file-name user-emacs-directory))
-    ;; Dynamic scoping to the rescue
-    (let ((org-confirm-babel-evaluate nil))
-      (org-babel-tangle))))
+  (add-to-list 'org-structure-template-alist '("py" . "src python"))
+  (add-to-list 'org-structure-template-alist '("ltx" . "src latex"))
+  (add-to-list 'org-structure-template-alist '("cpp" . "src cpp")))
 
 ;; I prefer the exports to go to its own subdirectory
 (defun org-export-output-file-name-modified (orig-fun extension &optional subtreep pub-dir)
@@ -110,7 +107,5 @@
   (apply orig-fun extension subtreep pub-dir nil))
 (advice-add 'org-export-output-file-name :around #'org-export-output-file-name-modified)
 
-
-(add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'bjl/org-babel-tangle-config)))
 
 (provide 'bjl-org)

@@ -66,7 +66,8 @@
   :config
   (evil-collection-define-key 'normal 'dired-mode-map
     "h" 'dired-single-up-directory
-    "l" 'dired-single-buffer))
+    "l" 'dired-single-buffer)
+  )
 
 (use-package dired-single
   :commands (dired dired-jump))
@@ -87,5 +88,6 @@
   :config
   (evil-collection-define-key 'normal 'dired-mode-map
     "H" 'dired-hide-dotfiles-mode))
+
 
 (provide 'bjl-utilities)
