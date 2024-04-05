@@ -19,6 +19,9 @@
   (setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
   (setq org-refile-use-outline-path t)                  ; Show full paths for refiling
 
+  (define-key org-mode-map (kbd "C-<return>") nil)
+  (define-key org-mode-map (kbd "C-<return>") 'org-insert-subheading)
+ 
   (setq org-agenda-start-with-log-mode t)
   (setq org-export-coding-system 'utf-8)
   (setq org-log-done 'time)
@@ -33,31 +36,33 @@
   (add-to-list 'org-modules 'org-habit)
   (setq org-habit-graph-column 60)
 
+  (setq org-todo-keywords
+	'((sequence "TODO(t)" "IN PROGRESS(i@/!)" "|" "DONE(d@/!)" "ABANDONED(a@)")))
+
   ;; Save Org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
   (setq org-tag-alist
-	'((:startgroup)
-					; Put mutually exclusive tags here
-	  (:endgroup)
-	  ("@errand" . ?E)
-	  ("@home" . ?H)
+	'(("@personal" . ?H)
 	  ("@work" . ?W)
-	  ("agenda" . ?a)
-	  ("planning" . ?p)
-	  ("publish" . ?P)
-	  ("batch" . ?b)
-	  ("note" . ?n)
 	  ("idea" . ?i))))
 
 (with-eval-after-load 'org
+  (require 'org-tempo)
+
+  (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+  (add-to-list 'org-structure-template-alist '("py" . "src python"))
+  (add-to-list 'org-structure-template-alist '("ltx" . "src latex"))
+  (add-to-list 'org-structure-template-alist '("cpp" . "src cpp"))
+
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
      (python . t)
      (shell . t)))
 
-  (with-eval-after-load 'org (global-org-modern-mode))
+  (global-org-modern-mode)
 
   (defun capture-report-date-file (path) (let ((name (read-string "Name: "))) (expand-file-name (format "%s.org"  name) path)))
 
@@ -87,16 +92,6 @@
   
   
   (push '("conf-unix" . conf-unix) org-src-lang-modes))
-
-(with-eval-after-load 'org
-  ;; This is needed as of Org 9.2
-  (require 'org-tempo)
-
-  (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
-  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-  (add-to-list 'org-structure-template-alist '("py" . "src python"))
-  (add-to-list 'org-structure-template-alist '("ltx" . "src latex"))
-  (add-to-list 'org-structure-template-alist '("cpp" . "src cpp")))
 
 ;; I prefer the exports to go to its own subdirectory
 (defun org-export-output-file-name-modified (orig-fun extension &optional subtreep pub-dir)
