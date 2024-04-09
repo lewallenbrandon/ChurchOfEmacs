@@ -25,7 +25,6 @@
 	    "Bfs" '("Save" . bookmark-save)
 	    "Bfl" '("Load" . bookmark-load)
 
-
     "d" '(:ignore t :which-key "Dired") ;; Directory
 	"dj" '("Jump" . dired-jump) 
 	"do" '("Open" . dired) 
@@ -35,13 +34,6 @@
 	"fd" '("Delete" . delete-file) 
 	"fo" '("Open" . counsel-find-file) 
 	"fr" '("Rename" . rename-file) 
-
-    "g" '(:ignore t :which-key "Git")
-	"gb" '("Blame" . magit-blame)
-	"gd" '("Dispatch" . magit-dispatch)
-	"gf" '("File Git" . magit-file-dispatch)
-	"go" '("Open Git" . magit) 
-
 
     "k" '(:ignore t :which-key "Kill")
 	"kb" '(:ignore t :which-key "Buffers")
@@ -80,6 +72,7 @@
 
 	"on" '("Note" . org-add-note)
 	"or" '("Refile" . org-refile)
+	"ot" '("Tag" . org-set-tags-command)
 
     "p" '(:ignore t :which-key "Project")
 	"pd" '("Dired" . projectile-dired) 
@@ -115,17 +108,17 @@
 	    "ues" '("Sexp" . eval-last-sexp)
 
 	"uh" '(:ignore t :which-key "Help" ) 
-	    "uhv" '("Describe Variable" . counsel-describe-variable)
-	    "uhf" '("Describe Function" . counsel-describe-function)
 	    "uhc" '("Describe Command" . helpful-command )
+	    "uhf" '("Describe Function" . counsel-describe-function)
 	    "uhk" '("Describe Key" . helpful-key)
 	    "uhm" '("Describe Mode" . describe-mode)
 	    "uhp" '("Describe Package" . describe-package)
 	    "uhr" '("Repeat Cmd" . repeat-complex-command)
+	    "uhv" '("Describe Variable" . counsel-describe-variable)
 
 	"uhC" '(:ignore t :which-key "Config Files" )
-	    "hCi" `("init.el" . (lambda () (interactive) (find-file ,dotemacs-init))) 
-	    "hCe" `("Elisp Dir" . (lambda () (interactive) (dired ,dotemacs-elisp-dir)))
+	    "uhCe" `("Elisp Dir" . (lambda () (interactive) (dired ,dotemacs-elisp-dir)))
+	    "uhCi" `("init.el" . (lambda () (interactive) (find-file ,dotemacs-init))) 
 
     "w" '(:ignore t :which-key "Windows")
 	"wv" '("Vertical Split" . split-window-vertically-and-focus)
