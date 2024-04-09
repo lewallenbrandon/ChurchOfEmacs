@@ -10,16 +10,16 @@
     :prefix "SPC"
     :global-prefix "C-M-SPC")
   (bjl/leader-keys
-    "<SPC>" '("Counsel-M-x" . counsel-M-x)
+    "<SPC>" '("M-x" . execute-extended-command)
     
     "b" '(:ignore t :which-key "Buffers" )
-	"bm" '("Menu Buffer" . counsel-switch-buffer)
+	"bm" '("Menu Buffer" . consult-buffer)
 	"bp" '("Previous Buffer" . previous-buffer )
 	"bn" '("Next Buffer" . next-buffer )
 
     "B" '(:ignore t :which-key "Bookmarks" )
-	"Bd" '("Delet" . bookmark-delete)
-	"Bm" '("Menu" . counsel-bookmark)
+	"Bd" '("Delete" . bookmark-delete)
+	"Bm" '("Menu" . consult-bookmark)
 	"Bs" '("Set" . bookmark-set)
 	"Bf" '(:ignore t :which-key "File" )
 	    "Bfs" '("Save" . bookmark-save)
@@ -32,7 +32,7 @@
     "f" '(:ignore t :which-key "Files")
 	"fc" '("Copy" . copy-file) 
 	"fd" '("Delete" . delete-file) 
-	"fo" '("Open" . counsel-find-file) 
+	"fo" '("Open" . find-file)
 	"fr" '("Rename" . rename-file) 
 
     "k" '(:ignore t :which-key "Kill")
@@ -62,13 +62,13 @@
 	    "ofr" '("Refresh Agenda" . refresh-org-agenda-files) 
 	    "oft" `("Templates" . (lambda () (interactive) (dired ,org-templates-dir))) 
 
-	"og" '("Go to all" . counsel-org-goto-all)
+	"og" '("Go to all" . consult-org-heading)
 
 	"ol" '(:ignore t :which-key "Links")
 	    "oli" '("Insert" . org-insert-link) 
 	    "ols" '("Store" . org-store-link) 
 
-	    "oo" '("Outline" . counsel-outline)
+	    "oo" '("Outline" . consult-outline)
 
 	"on" '("Note" . org-add-note)
 	"or" '("Refile" . org-refile)
@@ -77,12 +77,12 @@
     "p" '(:ignore t :which-key "Project")
 	"pd" '("Dired" . projectile-dired) 
 	"pf" '(:ignore t :which-key "Find")
-	    "pff" '("Find File" . counsel-projectile) 
-	    "pfd" '("Find Dir" . counsel-projectile-find-dir) 
-	    "pg" '("Grep" . counsel-projectile-rg) 
+	    "pff" '("Find File" . projectile-find-file) 
+	    "pfd" '("Find Dir" . projectile-find-dir) 
+	    "pg" '("Grep" . projectile-rg) 
 	    "pm" '("Magit" . magit-project-status) 
 	    "pr" '("Replace" . projectile-replace) 
-	    "pS"  '("Switch Project" . counsel-projectile-switch-project) 
+	    "pS"  '("Switch Project" . projectile-switch-project) 
 	    "ps"  '("Shell" . projectile-run-eshell) 
 
     "s" '(:ignore t :which-key "Shell")
@@ -109,12 +109,12 @@
 
 	"uh" '(:ignore t :which-key "Help" ) 
 	    "uhc" '("Describe Command" . helpful-command )
-	    "uhf" '("Describe Function" . counsel-describe-function)
+	    "uhf" '("Describe Function" . describe-function)
 	    "uhk" '("Describe Key" . helpful-key)
 	    "uhm" '("Describe Mode" . describe-mode)
 	    "uhp" '("Describe Package" . describe-package)
 	    "uhr" '("Repeat Cmd" . repeat-complex-command)
-	    "uhv" '("Describe Variable" . counsel-describe-variable)
+	    "uhv" '("Describe Variable" . describe-variable)
 
 	"uhC" '(:ignore t :which-key "Config Files" )
 	    "uhCe" `("Elisp Dir" . (lambda () (interactive) (dired ,dotemacs-elisp-dir)))
