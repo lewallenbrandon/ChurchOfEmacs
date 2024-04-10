@@ -107,6 +107,7 @@
 	    "ues" '("Sexp" . eval-last-sexp)
 
 	"uh" '(:ignore t :which-key "Help" ) 
+	    "uhb" '("Describe Bindings" . embark-bindings)
 	    "uhc" '("Describe Command" . helpful-command )
 	    "uhf" '("Describe Function" . describe-function)
 	    "uhk" '("Describe Key" . helpful-key)
