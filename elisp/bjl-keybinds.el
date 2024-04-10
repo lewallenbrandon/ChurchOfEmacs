@@ -26,8 +26,7 @@
 	    "Bfl" '("Load" . bookmark-load)
 
     "d" '(:ignore t :which-key "Dired") ;; Directory
-	"dj" '("Jump" . dired-jump) 
-	"do" '("Open" . dired) 
+	"do" '("Open" . ranger) 
 
     "f" '(:ignore t :which-key "Files")
 	"fc" '("Copy" . copy-file) 
@@ -56,11 +55,11 @@
 	"oe" '("Export" . org-export-dispatch)
 
 	"of" '(:ignore t :which-key "Files")
-	    "ofa" `("Agenda" . (lambda () (interactive) (dired ,org-dir)))
-	    "ofe" `("Exports" . (lambda () (interactive) (dired ,org-exports-dir)))
+	    "ofa" `("Agenda" . (lambda () (interactive) (ranger ,org-dir)))
+	    "ofe" `("Exports" . (lambda () (interactive) (ranger ,org-exports-dir)))
 	    "ofp" `("Personal" . (lambda () (interactive) (find-file ,org-personal-notes))) 
 	    "ofr" '("Refresh Agenda" . refresh-org-agenda-files) 
-	    "oft" `("Templates" . (lambda () (interactive) (dired ,org-templates-dir))) 
+	    "oft" `("Templates" . (lambda () (interactive) (ranger ,org-templates-dir))) 
 
 	"og" '("Go to all" . consult-org-heading)
 
@@ -76,7 +75,7 @@
 
     "p" '(:ignore t :which-key "Project")
 	"pb" '("Buffers" . consult-project-buffer)
-	"pd" '("Dired" . project-dired) 
+	"pd" `("Dired" . (lambda () (interactive) (ranger (project-root (project-current t))))) 
 	"pf" '(:ignore t :which-key "Find")
 	    "pff" '("Find File" . project-find-file) 
 	    "pfd" '("Find Dir" . project-find-dir) 
@@ -117,7 +116,7 @@
 	    "uhv" '("Describe Variable" . describe-variable)
 
 	"uhC" '(:ignore t :which-key "Config Files" )
-	    "uhCe" `("Elisp Dir" . (lambda () (interactive) (dired ,dotemacs-elisp-dir)))
+	    "uhCe" `("Elisp Dir" . (lambda () (interactive) (ranger ,dotemacs-elisp-dir)))
 	    "uhCi" `("init.el" . (lambda () (interactive) (find-file ,dotemacs-init))) 
 
     "w" '(:ignore t :which-key "Windows")

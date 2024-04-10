@@ -10,9 +10,9 @@
 (require 'bjl-global-variables) ;; I'd like to have these available everywhere
 (require 'bjl-custom-functions) ;; These are custom functions that don't have strong dependencies on subsequent items
 (require 'bjl-defaults) ;; These are changes to Emacs Behavior. 
+(require 'bjl-utilities) ;; These packages are mostly concerned with help and navigation 
 (require 'bjl-keybinds) ;; Custom keybindings and evil (vim) setup.
 (require 'bjl-org) ;; Org deserved its own section 
-(require 'bjl-utilities) ;; These packages are mostly concerned with help and navigation 
 (require 'bjl-theme) ;; Self-explanatory
 (require 'bjl-programming) ;; Autocompletion, LSP, DAP, and Magit 
 (require 'bjl-terminal) ;; eShell and Terminal configuration
