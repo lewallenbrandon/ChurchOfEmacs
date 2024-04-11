@@ -21,10 +21,13 @@
 
 (use-package eglot
   :commands (eglot eglot-ensure)
-  :hook ((csharp-mode . eglot-ensure))
+  :hook ((csharp-mode . eglot-ensure)
+	 (python-mode . eglot-ensure)
+	 (c-mode . eglot-ensure)
+	 (c++-mode . eglot-ensure))
   :config
   (add-to-list 'eglot-server-programs
-             '(csharp-mode . ("csharp-ls"))))
+	       '(csharp-mode . ("csharp-ls"))))
 
 (use-package dap-mode
   ;; Uncomment the config below if you want all UI panes to be hidden by default!
