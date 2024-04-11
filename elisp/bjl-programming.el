@@ -1,23 +1,30 @@
 ;; Programming Packages
-(defun bjl/lsp-mode-setup ()
-  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
-  (lsp-headerline-breadcrumb-mode))
+;;(defun bjl/lsp-mode-setup ()
+;;  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+;;  (lsp-headerline-breadcrumb-mode))
+;;
+;;(use-package lsp-mode
+;;  :commands (lsp lsp-deferred)
+;;  :hook (lsp-mode . bjl/lsp-mode-setup)
+;;  :init
+;;  (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
+;;  :config
+;;  (lsp-enable-which-key-integration t))
+;;
+;;(use-package lsp-ui
+;;  :hook (lsp-mode . lsp-ui-mode)
+;;  :custom
+;;  (lsp-ui-doc-position 'bottom))
+;;
+;;(use-package lsp-treemacs
+;;  :after lsp)
 
-(use-package lsp-mode
-  :commands (lsp lsp-deferred)
-  :hook (lsp-mode . bjl/lsp-mode-setup)
-  :init
-  (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
+(use-package eglot
+  :commands (eglot eglot-ensure)
+  :hook ((csharp-mode . eglot-ensure))
   :config
-  (lsp-enable-which-key-integration t))
-
-(use-package lsp-ui
-  :hook (lsp-mode . lsp-ui-mode)
-  :custom
-  (lsp-ui-doc-position 'bottom))
-
-(use-package lsp-treemacs
-  :after lsp)
+  (add-to-list 'eglot-server-programs
+             '(csharp-mode . ("csharp-ls"))))
 
 (use-package dap-mode
   ;; Uncomment the config below if you want all UI panes to be hidden by default!
@@ -36,12 +43,6 @@
    :keymaps 'lsp-mode-map
    :prefix lsp-keymap-prefix
    "d" '(dap-hydra t :wk "debugger")))
-
-(use-package typescript-mode
-  :mode "\\.ts\\'"
-  :hook (typescript-mode . lsp-deferred)
-  :config
-  (setq typescript-indent-level 2))
 
 (use-package python-mode
   :ensure t
