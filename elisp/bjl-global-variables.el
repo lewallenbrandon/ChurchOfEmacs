@@ -26,4 +26,7 @@
  
 (defvar org-exports-dir "~/org_exports/")
 
+(defvar org-images-dir "~/org-images/")
+(defvar org-images-subdir-cache nil)
+
 (provide 'bjl-global-variables)

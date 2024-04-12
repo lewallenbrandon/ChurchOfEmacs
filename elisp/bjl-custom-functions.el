@@ -6,6 +6,26 @@
    (interactive)
    (setq org-agenda-files (directory-files-recursively "~/org" "org$")))
 
+;; Create a function that inserts a link through file selection
+(defun org-insert-image-link ()
+  (interactive)
+  ;; Check if org-images-subdir-cache is not nil
+  (if (not org-images-subdir-cache)
+      ;; Prompt the user for the file that they want to insert
+      (let ((file-path (read-file-name "File: " "~/org-images/")
+		       )
+	    )
+	;; Insert the link
+	(insert (format "[[%s]]" file-path))
+	;; Update the org-images-subdir-cache with the directory of the file
+	(setq org-images-subdir-cache (file-name-directory file-path)))
+  ;; else we have a cache, so we can ask them which file in that directory
+  (let ((file-path (read-file-name "File: " org-images-subdir-cache)))
+    (insert (format "[[%s]]" file-path))
+    (setq org-images-subdir-cache (file-name-directory file-path))
+    ))
+  )
+
 ;; Create a 10 asterisk heading that prompts the user for a name and definition
 (defun org-insert-definition ()
   (interactive)
