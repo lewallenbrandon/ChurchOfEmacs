@@ -39,13 +39,14 @@
   (setq org-todo-keywords
 	'((sequence "TODO(t)" "IN PROGRESS(i@/!)" "|" "DONE(d@/!)" "ABANDONED(a@)")))
 
-  ;; Save Org buffers after refiling!
-  (advice-add 'org-refile :after 'org-save-all-org-buffers)
-
   (setq org-tag-alist
 	'(("@personal" . ?H)
 	  ("@work" . ?W)
-	  ("idea" . ?i))))
+	  ("idea" . ?i)
+	  ("definition" . ?d)
+	  )
+	)
+  )
 
 (with-eval-after-load 'org
   (require 'org-tempo)
@@ -67,22 +68,33 @@
   (defun capture-report-date-file (path) (let ((name (read-string "Name: "))) (expand-file-name (format "%s.org"  name) path)))
 
   (setq org-capture-templates
-	(doct `(("Outline"
+	(doct `(
+
+		("Outline"
 		   :keys "o"
 		   :function (lambda () (find-file (capture-report-date-file org-dir)))
 		   :type plain
 		   :template-file  ,org-templates-project-outline)
+
+		("Book Notes"
+		   :keys "b"
+		   :function (lambda () (find-file (capture-report-date-file org-dir)))
+		   :type plain
+		   :template-file  ,org-templates-book-notes)
+
 		  ("Code Snippet"
 		   :keys "c"
 		   :file (lambda () (place-snippet-new))
 		   :function (lambda () (let ((org-goto-interface 'outline-path-completion)) (org-goto)))
 		   :type entry
 		   :template-file ,org-templates-code-snippet)
+
 		  ("Minimal"
 		   :keys "m"
 		   :function (lambda () (find-file (capture-report-date-file org-dir)))
 		   :type plain
 		   :template-file ,org-templates-minimal)
+
 		 )
 	      )
 	)

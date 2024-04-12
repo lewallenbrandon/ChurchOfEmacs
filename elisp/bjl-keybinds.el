@@ -194,4 +194,8 @@
 (define-key evil-visual-state-map (kbd "K") 'drag-stuff-up)
 (define-key evil-visual-state-map (kbd "J") 'drag-stuff-down)
 
+(use-package evil-numbers)
+(define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+(define-key evil-normal-state-map (kbd "C-d") 'evil-numbers/dec-at-pt)
+
 (provide 'bjl-keybinds)

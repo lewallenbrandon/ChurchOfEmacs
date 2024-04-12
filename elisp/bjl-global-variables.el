@@ -20,6 +20,7 @@
 
 (defvar org-templates-dir "~/org_templates/")
 (defvar org-templates-code-snippet (concat org-templates-dir "code_snippet.txt"))
+(defvar org-templates-book-notes (concat org-templates-dir "book_notes.txt"))
 (defvar org-templates-project-outline (concat org-templates-dir "project_outline.txt"))
 (defvar org-templates-minimal (concat org-templates-dir "minimal.txt"))
  

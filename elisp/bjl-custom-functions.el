@@ -1,5 +1,61 @@
 ;; Custom Functions
 
+;; ORG MODE FUNCTIONS 
+
+(defun refresh-org-agenda-files ()
+   (interactive)
+   (setq org-agenda-files (directory-files-recursively "~/org" "org$")))
+
+;; Create a 10 asterisk heading that prompts the user for a name and definition
+(defun org-insert-definition ()
+  (interactive)
+  (let ((name (read-string "Term: "))
+	(definition (read-string "Definition: ")))
+    (insert (format "********** %s - %s :definition:" name definition))))
+
+;; Create a function that takes all 10 asterisk headings and refiles them to the Glossary heading
+(defun org-refile-definitions ()
+  (interactive)
+  (org-map-entries 'org-refile-to-glossary "definition" 'file)
+  )
+
+(defun org-clear-glossary ()
+  (interactive)
+  (org-goto-glossary-headline)
+  (org-clear-subtree)
+  )
+
+(defun org-goto-glossary-headline ()
+  (interactive)
+  (let ((pos (save-excursion (org-find-exact-headline-in-buffer "Glossary"))
+	     )
+	)
+    (goto-char pos)
+    )
+  )
+
+(defun org-refile-to-glossary () 
+  ;; Get the current file path
+  (interactive)
+  (let ((pos (save-excursion
+	       (org-find-exact-headline-in-buffer "Glossary")
+	       )
+	     )
+	)
+    ;; Move to position
+    (let ((org-refile-keep t))
+      (org-refile nil nil (list "Glossary" (buffer-file-name) nil pos) "Copy")
+      )
+    )
+  )
+
+(defun org-clear-subtree ()
+  (interactive)
+  (org-mark-subtree) ;; mark the current subtree
+  (forward-line) ;; move point forward, so the headline isn't in the region
+  (delete-region (region-beginning) (region-end)) ;; delete the rest
+)
+
 (defun my-org-faces ()
   (set-face-attribute 'org-todo nil :height 0.8)
   (set-face-attribute 'org-level-1 nil :height 2.0)
@@ -7,10 +63,6 @@
   (set-face-attribute 'org-level-3 nil :height 1.6)
   (set-face-attribute 'org-level-4 nil :height 1.4)
   (set-face-attribute 'org-level-5 nil :height 1.2))
-
-(defun refresh-org-agenda-files ()
-   (interactive)
-   (setq org-agenda-files (directory-files-recursively "~/org" "org$")))
 
 (defun place-snippet-new ()
   (interactive)
