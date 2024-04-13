@@ -3,6 +3,10 @@
 (use-package vertico
   :init
   (vertico-mode)
+  :bind
+  (:map vertico-map
+	("M-p" . previous-history-element)
+	("M-n" . next-history-element))
 
   ;; Different scroll margin
   ;; (setq vertico-scroll-margin 0)
@@ -15,8 +19,10 @@
 
   ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
   ;; (setq vertico-cycle t)
+  
   )
-
+(keymap-set minibuffer-local-completion-map "M-n" #'minibuffer-next-completion)
+(keymap-set minibuffer-local-completion-map "M-p" #'minibuffer-prev-completion)
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
   :init

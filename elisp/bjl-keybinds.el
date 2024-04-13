@@ -28,11 +28,28 @@
     "d" '(:ignore t :which-key "Dired") ;; Directory
 	"do" '("Open" . ranger) 
 
+    "e" '(:ignore t :which-key "Evaluate")
+	"eb" '("Buffer" . eval-buffer)
+	"ed" '("Defun" . eval-defun)
+	"ee" '("Expression" . eval-expression)
+	"er" '("Region" . eval-region)
+	"es" '("Sexp" . eval-last-sexp)
+
     "f" '(:ignore t :which-key "Files")
 	"fc" '("Copy" . copy-file) 
 	"fd" '("Delete" . delete-file) 
 	"fo" '("Open" . find-file)
 	"fr" '("Rename" . rename-file) 
+
+    "h" '(:ignore t :which-key "Help" ) 
+	"hb" '("Describe Bindings" . embark-bindings)
+	"hc" '("Describe Command" . helpful-command )
+	"hf" '("Describe Function" . describe-function)
+	"hk" '("Describe Key" . helpful-key)
+	"hm" '("Describe Mode" . describe-mode)
+	"hp" '("Describe Package" . describe-package)
+	"hr" '("Repeat Cmd" . repeat-complex-command)
+	"hv" '("Describe Variable" . describe-variable)
 
     "k" '(:ignore t :which-key "Kill")
 	"kb" '(:ignore t :which-key "Buffers")
@@ -53,7 +70,8 @@
 	"oa" '("Agenda" . org-agenda)
 	"oc" '("Capture" . org-capture)
 	"oe" '("Export" . org-export-dispatch)
-	"od" '("Definition" . org-insert-definition-link)
+	"od" '(:ignore t :which-key "Delete")
+	    "odl" '("Link" . org-delete-link)
 
 	"of" '(:ignore t :which-key "Files")
 	    "ofa" `("Agenda" . (lambda () (interactive) (ranger ,org-dir)))
@@ -62,36 +80,41 @@
 	    "ofr" '("Refresh Agenda" . refresh-org-agenda-files) 
 	    "oft" `("Templates" . (lambda () (interactive) (ranger ,org-templates-dir))) 
 
-	"og" '("Go to all" . consult-org-heading)
 	"oG" '(:ignore t :which-key "Glossary")
 	    "oGc" '("Clear" . org-clear-glossary)
 	    "oGp" '("Populate" . org-refile-definition)
 
-	"ol" '(:ignore t :which-key "Links")
-	    "olI" '("Image" . org-insert-image)
-	    "oli" '("Insert" . org-insert-link) 
-	    "ols" '("Store" . org-store-link) 
-	    "old" '("Delete" . org-delete-link)
+	"oi" '(:ignore t :which-key "Links")
+	    "oid" '("Definition" . org-insert-definition-link)
+	    "oii" '("Image" . org-insert-image)
+	    "oil" '("Link" . org-insert-link) 
 
-	"oo" '("Outline" . consult-outline)
+
+	"oo" '("Outline" . (consult-org-heading "-definition" nil))
 	"on" '("Note" . org-add-note)
 	"or" '("Refile" . org-refile)
+
+	"os" '(:ignore t :which-key "Store")
+	    "osl" '("Link" . org-store-link)
+
 	"ot" '("Tag" . org-set-tags-command)
 
     "p" '(:ignore t :which-key "Project")
 	"pb" '("Buffers" . consult-project-buffer)
 	"pd" `("Dired" . (lambda () (interactive) (ranger (project-root (project-current t))))) 
+	
 	"pf" '(:ignore t :which-key "Find")
 	    "pff" '("Find File" . project-find-file) 
 	    "pfd" '("Find Dir" . project-find-dir) 
-	    "pg" '("Grep" . consult-ripgrep)
-	    "pm" '("Magit" . magit-project-status) 
-	    "pS"  '("Switch Project" . project-switch-project) 
-	    "ps"  '("eShell" . project-eshell) 
+
+	"pg" '("Grep" . consult-ripgrep)
+	"pm" '("Magit" . magit-project-status) 
+	"ps"  '("Switch Project" . project-switch-project) 
 
     "s" '(:ignore t :which-key "Shell")
-	"so" '("eShell" . eshell)
 	"sc" '("Command". eshell-command)
+	"so" '("eShell" . eshell)
+	"sp" '("eShell Project" . project-eshell) 
 
     "t" '(:ignore t :which-key "Tabs" )
 	"to" '("Open Tab" . tab-new )
@@ -104,26 +127,10 @@
 	"uk" '("Kill Ring Paste" . yank-pop)
 	"uz" '("Zoom In/Out" . hydra-text-scale/body)
 
-	"ue" '(:ignore t :which-key "Evaluate")
-	    "ueb" '("Buffer" . eval-buffer)
-	    "ued" '("Defun" . eval-defun)
-	    "uee" '("Expression" . eval-expression)
-	    "uer" '("Region" . eval-region)
-	    "ues" '("Sexp" . eval-last-sexp)
 
-	"uh" '(:ignore t :which-key "Help" ) 
-	    "uhb" '("Describe Bindings" . embark-bindings)
-	    "uhc" '("Describe Command" . helpful-command )
-	    "uhf" '("Describe Function" . describe-function)
-	    "uhk" '("Describe Key" . helpful-key)
-	    "uhm" '("Describe Mode" . describe-mode)
-	    "uhp" '("Describe Package" . describe-package)
-	    "uhr" '("Repeat Cmd" . repeat-complex-command)
-	    "uhv" '("Describe Variable" . describe-variable)
-
-	"uhC" '(:ignore t :which-key "Config Files" )
-	    "uhCe" `("Elisp Dir" . (lambda () (interactive) (ranger ,dotemacs-elisp-dir)))
-	    "uhCi" `("init.el" . (lambda () (interactive) (find-file ,dotemacs-init))) 
+	"uC" '(:ignore t :which-key "Config Files" )
+	    "uCe" `("Elisp Dir" . (lambda () (interactive) (ranger ,dotemacs-elisp-dir)))
+	    "uCi" `("init.el" . (lambda () (interactive) (find-file ,dotemacs-init))) 
 
     "w" '(:ignore t :which-key "Windows")
 	"wv" '("Vertical Split" . split-window-vertically-and-focus)
@@ -141,7 +148,9 @@
     "<up>" '(evil-window-up 1 :which-key "Top Window")
     "<down>" '(evil-window-down 1 :which-key "Top Window")
     "<left>" '(evil-window-left 1 :which-key "Top Window")
-    "<right>" '(evil-window-right 1 :which-key "Top Window"))
+    "<right>" '(evil-window-right 1 :which-key "Top Window")
+    "M-n" '(next-history-element :which-key "Next Completion")
+    "M-p" '(previous-history-element :which-key "Previous Completion"))
   )
 
 
