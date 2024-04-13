@@ -22,16 +22,17 @@
   ;; else we have a cache, so we can ask them which file in that directory
   (let ((file-path (read-file-name "File: " org-images-subdir-cache)))
     (insert (format "[[%s]]" file-path))
-    (setq org-images-subdir-cache (file-name-directory file-path))
+    (setq org-images-subdir-cache (file-name-directory file-path)) ;; We update in case they changed dirs
     ))
   )
 
 ;; Create a 10 asterisk heading that prompts the user for a name and definition
 (defun org-insert-definition ()
   (interactive)
-  (let ((name (read-string "Term: "))
+  (evil-open-below 1)
+  (let ((term (read-string "Term: "))
 	(definition (read-string "Definition: ")))
-    (insert (format "********** %s - %s :definition:" name definition))))
+    (insert (format "********** %s - %s :definition:" term definition))))
 
 ;; Create a function that takes all 10 asterisk headings and refiles them to the Glossary heading
 (defun org-refile-definitions ()

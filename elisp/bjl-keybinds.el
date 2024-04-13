@@ -53,6 +53,7 @@
 	"oa" '("Agenda" . org-agenda)
 	"oc" '("Capture" . org-capture)
 	"oe" '("Export" . org-export-dispatch)
+	"od" '("Definition" . org-insert-definition-link)
 
 	"of" '(:ignore t :which-key "Files")
 	    "ofa" `("Agenda" . (lambda () (interactive) (ranger ,org-dir)))
@@ -62,13 +63,17 @@
 	    "oft" `("Templates" . (lambda () (interactive) (ranger ,org-templates-dir))) 
 
 	"og" '("Go to all" . consult-org-heading)
+	"oG" '(:ignore t :which-key "Glossary")
+	    "oGc" '("Clear" . org-clear-glossary)
+	    "oGp" '("Populate" . org-refile-definition)
 
 	"ol" '(:ignore t :which-key "Links")
+	    "olI" '("Image" . org-insert-image)
 	    "oli" '("Insert" . org-insert-link) 
 	    "ols" '("Store" . org-store-link) 
+	    "old" '("Delete" . org-delete-link)
 
-	    "oo" '("Outline" . consult-outline)
-
+	"oo" '("Outline" . consult-outline)
 	"on" '("Note" . org-add-note)
 	"or" '("Refile" . org-refile)
 	"ot" '("Tag" . org-set-tags-command)
