@@ -25,7 +25,7 @@
 	    "Bfs" '("Save" . bookmark-save)
 	    "Bfl" '("Load" . bookmark-load)
 
-    "d" '(:ignore t :which-key "Dired") ;; Directory
+    "d" '(:ignore t :which-key "Directory") ;; Directory
 	"do" '("Open" . ranger) 
 
     "e" '(:ignore t :which-key "Evaluate")
@@ -84,20 +84,25 @@
 	    "oGc" '("Clear" . org-clear-glossary)
 	    "oGp" '("Populate" . org-refile-definition)
 
-	"oi" '(:ignore t :which-key "Links")
-	    "oid" '("Definition" . org-insert-definition-link)
+	"oi" '(:ignore t :which-key "Insert")
+	    "oid" '("Definition" . (lambda () (interactive) (org-insert-definition)))
 	    "oii" '("Image" . org-insert-image)
 	    "oil" '("Link" . org-insert-link) 
+	    "oin" '("Note" . org-add-note)
 
-
-	"oo" '("Outline" . (consult-org-heading "-definition" nil))
-	"on" '("Note" . org-add-note)
+	"oo" '("Outline" . (lambda () (interactive) (consult-org-heading "-definition" nil)))
 	"or" '("Refile" . org-refile)
 
 	"os" '(:ignore t :which-key "Store")
 	    "osl" '("Link" . org-store-link)
 
-	"ot" '("Tag" . org-set-tags-command)
+	"oT" '("Tag" . org-set-tags-command)
+	"ot" '("Todo" . org-todo)
+
+	"ox" '(:ignore t :which-key "Execute")
+	    "oxb" '("Buffer" . org-babel-execute-buffer)
+	    "oxs" '("Src" . org-babel-execute-src-block)
+	    "oxt" '("Tree" . org-babel-execute-subtree)
 
     "p" '(:ignore t :which-key "Project")
 	"pb" '("Buffers" . consult-project-buffer)
@@ -124,10 +129,11 @@
 	"tm" '("Menu Tab" . tab-switcher )
 
     "u" '(:ignore t :which-key "Utilities" )
+	"uc" '(:ignore t :which-key "Clipboard" )
+	    "ucy" '("Yank" . copy-to-x-clipboard)
+	    "ucp" '("Paste" . paste-from-x-clipboard)
 	"uk" '("Kill Ring Paste" . yank-pop)
 	"uz" '("Zoom In/Out" . hydra-text-scale/body)
-
-
 	"uC" '(:ignore t :which-key "Config Files" )
 	    "uCe" `("Elisp Dir" . (lambda () (interactive) (ranger ,dotemacs-elisp-dir)))
 	    "uCi" `("init.el" . (lambda () (interactive) (find-file ,dotemacs-init))) 
@@ -189,12 +195,14 @@
   (evil-collection-init))
 
 (add-hook 'org-mode-hook
-          (lambda ()
-            (evil-local-set-key 'normal (kbd "C-<return>") 'org-insert-subheading)))
-
-(add-hook 'org-mode-hook
-          (lambda ()
-            (evil-local-set-key 'insert (kbd "C-<return>") 'org-insert-subheading)))
+	  (lambda ()
+	    (evil-local-set-key 'normal (kbd "C-M-<return>") 'org-insert-heading-and-demote)
+	    (evil-local-set-key 'insert (kbd "C-M-<return>") 'org-insert-heading-and-demote)
+	    (evil-local-set-key 'normal (kbd "C-<return>") 'org-insert-heading-and-promote)
+	    (evil-local-set-key 'insert (kbd "C-<return>") 'org-insert-heading-and-promote)
+	    (evil-local-set-key 'normal (kbd "M-<return>") 'org-insert-heading-at-level)
+	    (evil-local-set-key 'insert (kbd "M-<return>") 'org-insert-heading-at-level)
+	    ))
 
 (use-package which-key
   :defer 0

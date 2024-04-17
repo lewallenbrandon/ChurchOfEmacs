@@ -28,6 +28,15 @@
   :init
   (savehist-mode))
 
+
+(setenv
+  "DICPATH"
+  (concat (getenv "HOME") "/Library/Spelling"))
+
+(setq
+  ispell-program-name
+  "/opt/homebrew/bin/hunspell")
+
 ;; A few more useful configurations...
 (use-package emacs
   :init

@@ -6,6 +6,44 @@
    (interactive)
    (setq org-agenda-files (directory-files-recursively "~/org" "org$")))
 
+;; Insert a heading and then promote it
+(defun org-insert-heading-and-promote ()
+  (interactive)
+  ;; Check if the heading we're under is level 10
+  (let ((level (org-current-level)))
+       (if (eq level 10)
+	   ;; If it is, then we need to move up a level))
+	   (org-up-heading-safe)
+	 ))
+  (org-insert-heading)
+  (org-promote)
+  )
+
+;; Insert a heading and then promote it
+(defun org-insert-heading-at-level ()
+  (interactive)
+  ;; Check if the heading we're under is level 10
+  (let ((level (org-current-level)))
+       (if (eq level 10)
+	   ;; If it is, then we need to move up a level))
+	   (org-up-heading-safe)
+	 ))
+  (org-insert-heading)
+  )
+
+
+(defun org-insert-heading-and-demote ()
+  (interactive)
+  ;; Check if the heading we're under is level 10
+  (let ((level (org-current-level)))
+       (if (eq level 10)
+	   ;; If it is, then we need to move up a level))
+	   (org-up-heading-safe)
+	 ))
+  (org-insert-heading)
+  (org-demote)
+  )
+
 ;; Create a function that inserts a link through file selection
 (defun org-insert-image-link ()
   (interactive)

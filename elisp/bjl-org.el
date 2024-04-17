@@ -18,9 +18,6 @@
 			     (org-agenda-files :maxlevel . 9)))
   (setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
   (setq org-refile-use-outline-path t)                  ; Show full paths for refiling
-
-  (define-key org-mode-map (kbd "C-<return>") nil)
-  (define-key org-mode-map (kbd "C-<return>") 'org-insert-subheading)
  
   (setq org-agenda-start-with-log-mode t)
   (setq org-export-coding-system 'utf-8)
