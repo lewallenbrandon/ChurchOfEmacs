@@ -271,4 +271,45 @@
 (use-package all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode))
 
+;; Doc View Stuff
+(setq doc-view-resolution 400)
+
+;; DocView Viewing Window
+(setq DocView-viewing-window nil)
+
+;; Command to set the docview buffer to view
+(defun set-currently-viewing-docview-window ()
+  (interactive)
+  (setq DocView-viewing-window (selected-window)))
+
+;; Command to go to next page in currently viewing docview buffer
+(defun smart-doc-view-next-page ()
+  (interactive)
+  ;; Save current position
+  (let ((old-window (selected-window)))
+    (save-selected-window
+	(select-window DocView-viewing-window)
+	;; Go to next page
+	(doc-view-scroll-up-or-next-page))))
+
+;; Command to go to previous page in currently viewing docview buffer
+(defun smart-doc-view-previous-page ()
+  (interactive)
+  ;; Save current position
+  (let ((old-window (selected-window)))
+    (save-selected-window
+	(select-window DocView-viewing-window)
+	;; Go to next page
+	(doc-view-scroll-down-or-previous-page))))
+
+;; Command to go to previous page in currently viewing docview buffer
+(defun smart-doc-view-jumpto-page ()
+  (interactive)
+  ;; Save current position
+  (let ((old-window (selected-window)))
+    (save-selected-window
+	(select-window DocView-viewing-window)
+	;; Go to next page
+	(doc-view-goto-page))))
+
 (provide 'bjl-utilities)

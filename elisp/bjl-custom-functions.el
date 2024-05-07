@@ -2,6 +2,53 @@
 
 ;; ORG MODE FUNCTIONS 
 
+;; Org Theming Stuff
+(defun toggle-org-custom-inline-style ()
+  (interactive)
+  (let ((hook 'org-export-before-parsing-hook)
+        (fun 'set-org-html-style))
+    (if (memq fun (eval hook))
+        (progn
+          (remove-hook hook fun 'buffer-local)
+          (message "Removed %s from %s" (symbol-name fun) (symbol-name hook)))
+      (add-hook hook fun nil 'buffer-local)
+      (message "Added %s to %s" (symbol-name fun) (symbol-name hook)))))
+ 
+(defun org-theme ()
+  (interactive)
+  (let* ((cssdir org-css-dir)
+         (css-choices (directory-files cssdir nil ".css$"))
+         (css (completing-read "theme: " css-choices nil t)))
+    (concat cssdir css)))
+
+(defun org-change-html-theme ()
+  (interactive)
+  (let* ((cssdir org-css-dir)
+	 (css-choices (directory-files cssdir nil ".css$"))
+	 (css (completing-read "theme: " css-choices nil t)))
+    (setq org-theme-css (concat cssdir css))
+    (org-set-html-theme)))
+ 
+(defun org-set-html-theme (&optional backend)
+  (interactive)
+  (when (or (null backend) (eq backend 'html))
+    (let ((f (or (and (boundp 'org-theme-css) org-theme-css) (org-theme))))
+      (if (file-exists-p f)
+          (progn
+            (set (make-local-variable 'org-theme-css) f)            
+            (set (make-local-variable 'org-html-head)
+                 (with-temp-buffer
+                   (insert "<style type=\"text/css\">\n<!--/*--><![CDATA[/*><!--*/\n")
+                   (insert-file-contents f)
+                   (goto-char (point-max))
+                   (insert "\n/*]]>*/-->\n</style>\n")
+                   (buffer-string)))
+            (set (make-local-variable 'org-html-head-include-default-style)
+                 nil)
+            (message "Set custom style from %s" f))
+        (message "Custom header file %s doesnt exist")))))
+
+;; Org Refresh Agenda
 (defun refresh-org-agenda-files ()
    (interactive)
    (setq org-agenda-files (directory-files-recursively "~/org" "org$")))
@@ -70,7 +117,7 @@
   (evil-open-below 1)
   (let ((term (read-string "Term: "))
 	(definition (read-string "Definition: ")))
-    (insert (format "********** %s - %s :definition:" term definition))))
+    (insert (format "********** *%s* - %s :definition:" term definition))))
 
 ;; Create a function that takes all 10 asterisk headings and refiles them to the Glossary heading
 (defun org-refile-definitions ()

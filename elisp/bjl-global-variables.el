@@ -29,4 +29,6 @@
 (defvar org-images-dir "~/org-images/")
 (defvar org-images-subdir-cache nil)
 
+(defvar org-css-dir "~/org-css/")
+
 (provide 'bjl-global-variables)

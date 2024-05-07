@@ -84,9 +84,13 @@
 	    "oGc" '("Clear" . org-clear-glossary)
 	    "oGp" '("Populate" . org-refile-definition)
 
+	"oh" '(:ignore t :which-key "HTML Themes")
+	    "ohc" '("Change" . org-change-html-theme)
+	    "ohp" '("Set" . org-set-html-theme)
+
 	"oi" '(:ignore t :which-key "Insert")
 	    "oid" '("Definition" . (lambda () (interactive) (org-insert-definition)))
-	    "oii" '("Image" . org-insert-image)
+	    "oii" '("Image" . org-insert-image-link)
 	    "oil" '("Link" . org-insert-link) 
 	    "oin" '("Note" . org-add-note)
 
@@ -101,7 +105,7 @@
 
 	"ox" '(:ignore t :which-key "Execute")
 	    "oxb" '("Buffer" . org-babel-execute-buffer)
-	    "oxs" '("Src" . org-babel-execute-src-block)
+	    "oxs" '("Source" . org-babel-execute-src-block)
 	    "oxt" '("Tree" . org-babel-execute-subtree)
 
     "p" '(:ignore t :which-key "Project")
@@ -196,12 +200,12 @@
 
 (add-hook 'org-mode-hook
 	  (lambda ()
-	    (evil-local-set-key 'normal (kbd "C-M-<return>") 'org-insert-heading-and-demote)
-	    (evil-local-set-key 'insert (kbd "C-M-<return>") 'org-insert-heading-and-demote)
-	    (evil-local-set-key 'normal (kbd "C-<return>") 'org-insert-heading-and-promote)
-	    (evil-local-set-key 'insert (kbd "C-<return>") 'org-insert-heading-and-promote)
+	    (evil-local-set-key 'normal (kbd "C-M-<return>") 'org-insert-heading-and-promote)
+	    (evil-local-set-key 'insert (kbd "C-M-<return>") 'org-insert-heading-and-promote)
 	    (evil-local-set-key 'normal (kbd "M-<return>") 'org-insert-heading-at-level)
 	    (evil-local-set-key 'insert (kbd "M-<return>") 'org-insert-heading-at-level)
+	    (evil-local-set-key 'normal (kbd "C-<return>") 'org-insert-heading-and-demote)
+	    (evil-local-set-key 'insert (kbd "C-<return>") 'org-insert-heading-and-demote)
 	    ))
 
 (use-package which-key
@@ -219,5 +223,11 @@
 (use-package evil-numbers)
 (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
 (define-key evil-normal-state-map (kbd "C-d") 'evil-numbers/dec-at-pt)
+(evil-set-undo-system 'undo-redo)
+
+(use-package evil-surround
+  :ensure t
+  :config
+  (global-evil-surround-mode 1))
 
 (provide 'bjl-keybinds)
