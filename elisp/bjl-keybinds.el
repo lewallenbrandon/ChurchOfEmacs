@@ -16,6 +16,7 @@
 	"bm" '("Menu Buffer" . consult-buffer)
 	"bp" '("Previous Buffer" . previous-buffer )
 	"bn" '("Next Buffer" . next-buffer )
+	"bo" '("Menu Buffer (Other Window)" . consult-buffer-other-window)
 
     "B" '(:ignore t :which-key "Bookmarks" )
 	"Bd" '("Delete" . bookmark-delete)
@@ -24,9 +25,15 @@
 	"Bf" '(:ignore t :which-key "File" )
 	    "Bfs" '("Save" . bookmark-save)
 	    "Bfl" '("Load" . bookmark-load)
-
-    "d" '(:ignore t :which-key "Directory") ;; Directory
-	"do" '("Open" . ranger) 
+	    
+    "d" '(:ignore t :which-key "DocView" )
+	"dh" '("Previous Page" . smart-doc-view-previous-page)
+	"dl" '("Next Page" . smart-doc-view-next-page)
+	"ds" '("Search Page" . (lambda (query) (interactive "sQuery: " ) (smart-doc-view-search-query query)))
+	"dg" '("Go to Page" . (lambda (number) (interactive "nNumber: ") (smart-doc-view-goto-page number)))
+	"dn" '("Next Match" . (lambda () (interactive) (smart-doc-view-next-search-hit)))
+	"dp" '("Previous Match" . (lambda () (interactive) (smart-doc-view-prior-search-hit)))
+	"dv" '("Set Viewing Document" . smart-doc-set-viewing-window)
 
     "e" '(:ignore t :which-key "Evaluate")
 	"eb" '("Buffer" . eval-buffer)
@@ -119,6 +126,10 @@
 	"pg" '("Grep" . consult-ripgrep)
 	"pm" '("Magit" . magit-project-status) 
 	"ps"  '("Switch Project" . project-switch-project) 
+
+    "r" '(:ignore t :which-key "Ranger (Dir)") ;; Directory
+	"ro" '("Open" . ranger) 
+
 
     "s" '(:ignore t :which-key "Shell")
 	"sc" '("Command". eshell-command)

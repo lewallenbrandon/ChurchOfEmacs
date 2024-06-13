@@ -18,17 +18,23 @@
 ;;
 ;;(use-package lsp-treemacs
 ;;  :after lsp)
+(use-package rustic)
 
 (use-package eglot
   :commands (eglot eglot-ensure)
   :hook ((csharp-mode . eglot-ensure)
 	 (python-mode . eglot-ensure)
+	 (rust-mode . eglot-ensure)
 	 (c-mode . eglot-ensure)
 	 (c++-mode . eglot-ensure))
   :config
   (add-to-list 'eglot-server-programs
 	       '(csharp-mode . ("csharp-ls"))))
-
+(use-package exec-path-from-shell)
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+(when (daemonp)
+  (exec-path-from-shell-initialize))
 (use-package dap-mode
   ;; Uncomment the config below if you want all UI panes to be hidden by default!
   ;; :custom

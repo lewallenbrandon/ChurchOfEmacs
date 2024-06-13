@@ -278,7 +278,7 @@
 (setq DocView-viewing-window nil)
 
 ;; Command to set the docview buffer to view
-(defun set-currently-viewing-docview-window ()
+(defun smart-doc-set-viewing-window ()
   (interactive)
   (setq DocView-viewing-window (selected-window)))
 
@@ -299,17 +299,45 @@
   (let ((old-window (selected-window)))
     (save-selected-window
 	(select-window DocView-viewing-window)
-	;; Go to next page
+	;; Go to prior page
 	(doc-view-scroll-down-or-previous-page))))
 
 ;; Command to go to previous page in currently viewing docview buffer
-(defun smart-doc-view-jumpto-page ()
+(defun smart-doc-view-goto-page (number)
+  ;; Save current position
+  (let ((old-window (selected-window)))
+    (save-selected-window
+	(select-window DocView-viewing-window)
+	;; Go to next page
+	(doc-view-goto-page number))))
+
+;; Command to go to previous page in currently viewing docview buffer
+(defun smart-doc-view-search-query (query)
+  ;; Save current position
+  (let ((old-window (selected-window)))
+    (save-selected-window
+	(select-window DocView-viewing-window)
+	;; Search
+	(doc-view-search query))))
+
+;; Command to go to previous page in currently viewing docview buffer
+(defun smart-doc-view-prior-search-hit ()
   (interactive)
   ;; Save current position
   (let ((old-window (selected-window)))
     (save-selected-window
 	(select-window DocView-viewing-window)
 	;; Go to next page
-	(doc-view-goto-page))))
+	(doc-view-search-previous-match 1))))
+
+;; Command to go to previous page in currently viewing docview buffer
+(defun smart-doc-view-next-search-hit ()
+  (interactive)
+  ;; Save current position
+  (let ((old-window (selected-window)))
+    (save-selected-window
+	(select-window DocView-viewing-window)
+	;; Go to next page
+	(doc-view-search-next-match 1))))
 
 (provide 'bjl-utilities)

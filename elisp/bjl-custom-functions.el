@@ -62,6 +62,7 @@
 	   ;; If it is, then we need to move up a level))
 	   (org-up-heading-safe)
 	 ))
+
   (org-insert-heading)
   (org-promote)
   )
@@ -75,8 +76,12 @@
 	   ;; If it is, then we need to move up a level))
 	   (org-up-heading-safe)
 	 ))
-  (org-insert-heading)
-  )
+  (let* ((e (save-excursion (beginning-of-line) (org-element-at-point))))
+      ;; Check we're really on a line with a bullet.
+      (if (memq (org-element-type e) '(item plain-list))
+	  (org-insert-item)
+	  (org-insert-heading))
+  ))
 
 
 (defun org-insert-heading-and-demote ()

@@ -49,16 +49,18 @@
   (require 'org-tempo)
 
   (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+  (add-to-list 'org-structure-template-alist '("rs" . "src rust"))
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
   (add-to-list 'org-structure-template-alist '("py" . "src python"))
   (add-to-list 'org-structure-template-alist '("ltx" . "src latex"))
-  (add-to-list 'org-structure-template-alist '("cpp" . "src cpp"))
+  (add-to-list 'org-structure-template-alist '("cpp" . "src C++"))
 
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
      (python . t)
-     (shell . t)))
+     (shell . t)
+     (C . t)))
 
   (global-org-modern-mode)
 
