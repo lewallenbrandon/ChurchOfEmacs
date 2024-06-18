@@ -1,57 +1,51 @@
-;; Programming Packages
-;;(defun bjl/lsp-mode-setup ()
-;;  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
-;;  (lsp-headerline-breadcrumb-mode))
-;;
-;;(use-package lsp-mode
-;;  :commands (lsp lsp-deferred)
-;;  :hook (lsp-mode . bjl/lsp-mode-setup)
-;;  :init
-;;  (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
-;;  :config
-;;  (lsp-enable-which-key-integration t))
-;;
-;;(use-package lsp-ui
-;;  :hook (lsp-mode . lsp-ui-mode)
-;;  :custom
-;;  (lsp-ui-doc-position 'bottom))
-;;
-;;(use-package lsp-treemacs
-;;  :after lsp)
+(use-package lsp-mode
+  :init
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  (setq lsp-keymap-prefix "C-c l")
+  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+         (c++-mode . lsp)
+         (python-mode . lsp)
+         (rust-mode . lsp)
+         ;; if you want which-key integration
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
+
+;; optionally
+(use-package lsp-ui :commands lsp-ui-mode)
+(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+
+;; optionally if you want to use debugger
+(use-package dap-mode)
+(use-package dap-cpptools)
+
+;; optional if you want which-key integration
+(use-package which-key
+    :config
+    (which-key-mode))
+
 (use-package rustic)
 
-(use-package eglot
-  :commands (eglot eglot-ensure)
-  :hook ((csharp-mode . eglot-ensure)
-	 (python-mode . eglot-ensure)
-	 (rust-mode . eglot-ensure)
-	 (c-mode . eglot-ensure)
-	 (c++-mode . eglot-ensure))
-  :config
-  (add-to-list 'eglot-server-programs
-	       '(csharp-mode . ("csharp-ls"))))
+(setq c-basic-offset 4)
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq indent-line-function 'insert-tab)
+
+;;(use-package eglot
+;;  :commands (eglot eglot-ensure)
+;;  :hook ((csharp-mode . eglot-ensure)
+;;	 (python-mode . eglot-ensure)
+;;	 (rust-mode . eglot-ensure)
+;;	 (c-mode . eglot-ensure)
+;;	 (c++-mode . eglot-ensure))
+;;  :config
+;;  (add-to-list 'eglot-server-programs
+;;	       '(csharp-mode . ("csharp-ls"))))
+
 (use-package exec-path-from-shell)
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
 (when (daemonp)
   (exec-path-from-shell-initialize))
-(use-package dap-mode
-  ;; Uncomment the config below if you want all UI panes to be hidden by default!
-  ;; :custom
-  ;; (lsp-enable-dap-auto-configure nil)
-  ;; :config
-  ;; (dap-ui-mode 1)
-  :commands dap-debug
-  :config
-  ;; Set up Node debugging
-  (require 'dap-node)
-  (dap-node-setup) ;; Automatically installs Node debug adapter if needed
-
-  ;; Bind `C-c l d` to `dap-hydra` for easy access
-  (general-define-key
-   :keymaps 'lsp-mode-map
-   :prefix lsp-keymap-prefix
-   "d" '(dap-hydra t :wk "debugger")))
 
 (use-package python-mode
   :ensure t
