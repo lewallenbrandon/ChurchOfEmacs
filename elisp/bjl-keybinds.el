@@ -211,12 +211,12 @@
 
 (add-hook 'org-mode-hook
 	  (lambda ()
-	    (evil-local-set-key 'normal (kbd "C-M-<return>") 'org-insert-heading-and-promote)
-	    (evil-local-set-key 'insert (kbd "C-M-<return>") 'org-insert-heading-and-promote)
+	    (evil-local-set-key 'normal (kbd "C-<return>") 'org-insert-heading-and-promote)
+	    (evil-local-set-key 'insert (kbd "C-<return>") 'org-insert-heading-and-promote)
 	    (evil-local-set-key 'normal (kbd "M-<return>") 'org-insert-heading-at-level)
 	    (evil-local-set-key 'insert (kbd "M-<return>") 'org-insert-heading-at-level)
-	    (evil-local-set-key 'normal (kbd "C-<return>") 'org-insert-heading-and-demote)
-	    (evil-local-set-key 'insert (kbd "C-<return>") 'org-insert-heading-and-demote)
+	    (evil-local-set-key 'normal (kbd "C-M-<return>") 'org-insert-heading-and-demote)
+	    (evil-local-set-key 'insert (kbd "C-M-<return>") 'org-insert-heading-and-demote)
 	    ))
 
 (use-package which-key
