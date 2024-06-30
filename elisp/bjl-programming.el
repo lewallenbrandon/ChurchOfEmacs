@@ -5,6 +5,8 @@
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          (c++-mode . lsp)
          (python-mode . lsp)
+         (csharp-mode-hook . lsp)
+         (csharp-mode . lsp)
          (rust-mode . lsp)
          ;; if you want which-key integration
          (lsp-mode . lsp-enable-which-key-integration))
@@ -24,6 +26,12 @@
     (which-key-mode))
 
 (use-package rustic)
+(use-package wgrep)
+
+(use-package csharp-mode
+  :mode "\\.cs$"
+  :hook
+  (csharp-mode-hook . subword-mode))
 
 (setq c-basic-offset 4)
 (setq-default indent-tabs-mode nil)

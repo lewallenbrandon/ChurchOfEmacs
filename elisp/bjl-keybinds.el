@@ -65,6 +65,14 @@
 	    "kbm" '("Menu" . kill-buffer)
 	    "kbo" '("Org Agenda" . org-agenda-kill-all-agenda-buffers)
 	"ke" '("Emacs" . kill-emacs)
+
+    "l" '(:ignore t :which-key "LSP")
+    "la" '("Action" . lsp-execute-code-action)
+    "ld" '("Definition" . lsp-find-definition)
+    "lr" '("References" . lsp-find-references)
+    "ls" '("Symbol" . lsp-find-symbol)
+    "lt" '("Type" . lsp-find-type-definition)
+    "lw" '("Workspace" . lsp-find-workspace-symbol)
     
     "m" '(:ignore t :which-key "Magit")
 	"mb" '("Blame" . magit-blame)
