@@ -10,7 +10,8 @@
     :prefix "SPC"
     :global-prefix "C-M-SPC")
   (bjl/leader-keys
-    "<SPC>" '("M-x" . execute-extended-command)
+    "<SPC>" '(evil-ex :which-key t)
+    "<RET>" '(execute-extended-command :which-key t)
     
     "b" '(:ignore t :which-key "Buffers" )
 	"bm" '("Menu Buffer" . consult-buffer)
@@ -25,28 +26,40 @@
 	"Bf" '(:ignore t :which-key "File" )
 	    "Bfs" '("Save" . bookmark-save)
 	    "Bfl" '("Load" . bookmark-load)
-	    
-    "d" '(:ignore t :which-key "DocView" )
-	"dh" '("Previous Page" . smart-doc-view-previous-page)
-	"dl" '("Next Page" . smart-doc-view-next-page)
-	"ds" '("Search Page" . (lambda (query) (interactive "sQuery: " ) (smart-doc-view-search-query query)))
-	"dg" '("Go to Page" . (lambda (number) (interactive "nNumber: ") (smart-doc-view-goto-page number)))
-	"dn" '("Next Match" . (lambda () (interactive) (smart-doc-view-next-search-hit)))
-	"dp" '("Previous Match" . (lambda () (interactive) (smart-doc-view-prior-search-hit)))
-	"dv" '("Set Viewing Document" . smart-doc-set-viewing-window)
 
-    "e" '(:ignore t :which-key "Evaluate")
-	"eb" '("Buffer" . eval-buffer)
-	"ed" '("Defun" . eval-defun)
-	"ee" '("Expression" . eval-expression)
-	"er" '("Region" . eval-region)
-	"es" '("Sexp" . eval-last-sexp)
+    "c" '(:ignore t :which-key "Code")
+    "ca" '("Action" . lsp-execute-code-action)
+    "cd" '("Definition" . lsp-find-definition)
+    "cD" '(:ignore t :which-key "Debug")
+        "cD <RET>" '("Start" . dap-debug)
+        "cDb" '("Buffer" . dap-debug-buffer)
+        "cDl" '("Last" . dap-debug-last)
+        "cDr" '("Recent" . dap-debug-recent)
+        "cDt" '("Template" . dap-debug-template)
+    "ch" '("Hover" . lsp-ui-doc-toggle)
+    "cr" '("References" . lsp-find-references)
+    "cs" '("Symbol" . lsp-find-symbol)
+    "ct" '("Type" . lsp-find-type-definition)
+    "cw" '("Workspace" . lsp-find-workspace-symbol)
 
-    "f" '(:ignore t :which-key "Files")
-	"fc" '("Copy" . copy-file) 
-	"fd" '("Delete" . delete-file) 
-	"fo" '("Open" . find-file)
-	"fr" '("Rename" . rename-file) 
+    "f" '(:ignore t :which-key "Find")
+	"ff" '("Open" . find-file)
+    "f/" '("Search" . consult-isearch-history)
+    "fm" '("Macros" . consult-kmacro)
+    "fs" '("String" . consult-line)
+    "fg" '("Registers" . consult-register)
+
+    "F" '(:ignore t :which-key "Files")
+	"Fc" '("Copy" . copy-file) 
+	"Fd" '("Delete" . delete-file) 
+	"Fr" '("Rename" . rename-file) 
+
+    "g" '(:ignore t :which-key "Git")
+	"gb" '("Blame" . magit-blame)
+	"gd" '("Dispatch" . magit-dispatch)
+	"gf" '("File Git" . magit-file-dispatch)
+	"go" '("Open Git" . magit) 
+	"gp" '("Project Git" . magit-project-status)
 
     "h" '(:ignore t :which-key "Help" ) 
 	"hb" '("Describe Bindings" . embark-bindings)
@@ -66,34 +79,97 @@
 	    "kbo" '("Org Agenda" . org-agenda-kill-all-agenda-buffers)
 	"ke" '("Emacs" . kill-emacs)
 
-    "l" '(:ignore t :which-key "LSP")
-    "la" '("Action" . lsp-execute-code-action)
-    "ld" '("Definition" . lsp-find-definition)
-    "lr" '("References" . lsp-find-references)
-    "ls" '("Symbol" . lsp-find-symbol)
-    "lt" '("Type" . lsp-find-type-definition)
-    "lw" '("Workspace" . lsp-find-workspace-symbol)
-    
-    "m" '(:ignore t :which-key "Magit")
-	"mb" '("Blame" . magit-blame)
-	"md" '("Dispatch" . magit-dispatch)
-	"mf" '("File Git" . magit-file-dispatch)
-	"mo" '("Open Git" . magit) 
-	"mp" '("Project Git" . magit-project-status)
 
     "o" '(:ignore t :which-key "Org")
 	"oa" '("Agenda" . org-agenda)
 	"oc" '("Capture" . org-capture)
-	"oe" '("Export" . org-export-dispatch)
-	"od" '(:ignore t :which-key "Delete")
-	    "odl" '("Link" . org-delete-link)
 
 	"of" '(:ignore t :which-key "Files")
 	    "ofa" `("Agenda" . (lambda () (interactive) (ranger ,org-dir)))
+	    "ofb" `("Books" . (lambda () (interactive) (ranger ,org-book-notes)))
+	    "ofm" `("Meetings" . (lambda () (interactive) (ranger ,org-meeting-notes)))
+	    "ofM" `("Misc" . (lambda () (interactive) (ranger ,org-misc-notes)))
+	    "ofp" `("Presentations" . (lambda () (interactive) (ranger ,org-presentation-notes)))
 	    "ofe" `("Exports" . (lambda () (interactive) (ranger ,org-exports-dir)))
-	    "ofp" `("Personal" . (lambda () (interactive) (find-file ,org-personal-notes))) 
+	    "ofj" `("Journal" . (lambda () (interactive) (find-file ,org-journal-notes))) 
 	    "ofr" '("Refresh Agenda" . refresh-org-agenda-files) 
 	    "oft" `("Templates" . (lambda () (interactive) (ranger ,org-templates-dir))) 
+
+	"os" '(:ignore t :which-key "Store")
+	    "osl" '("Link" . org-store-link)
+
+
+    "p" '(:ignore t :which-key "Project")
+	"pb" '("Buffers" . consult-project-buffer)
+	"pd" `("Dired" . (lambda () (interactive) (ranger (project-root (project-current t))))) 
+	
+	"pf" '(:ignore t :which-key "Find")
+	    "pff" '("Find File" . project-find-file) 
+	    "pfd" '("Find Dir" . project-find-dir) 
+
+	"pm" '("Magit" . magit-project-status) 
+	"ps"  '("Switch Project" . project-switch-project) 
+
+    "r" '(:ignore t :which-key "Ripgrep")
+    "rs" '("String" . consult-ripgrep)
+
+    "s" '(:ignore t :which-key "Shell")
+	"sc" '("Command". eshell-command)
+	"so" '("eShell" . eshell)
+	"sp" '("eShell Project" . project-eshell) 
+    "sr" '("Rerun Last Command" . eshell-rerun-last-command)
+
+    "t" '(:ignore t :which-key "Tabs" )
+	"to" '("Open Tab" . tab-new )
+	"tx" '("Close Tab" . tab-close )
+	"tn" '("Next Tab" . tab-next )
+	"tp" '("Previous Tab" . tab-previous )
+	"tm" '("Menu Tab" . tab-switcher )
+
+    "u" '(:ignore t :which-key "Utilities" )
+        "ue" '(:ignore t :which-key "Evaluate")
+        "ueb" '("Buffer" . eval-buffer)
+        "ued" '("Defun" . eval-defun)
+        "uee" '("Expression" . eval-expression)
+        "uer" '("Region" . eval-region)
+        "ues" '("Sexp" . eval-last-sexp)
+	"uc" '(:ignore t :which-key "Clipboard" )
+	    "ucy" '("Yank" . copy-to-x-clipboard)
+	    "ucp" '("Paste" . paste-from-x-clipboard)
+	"uk" '("Kill Ring Paste" . yank-pop)
+	"uz" '("Zoom In/Out" . hydra-text-scale/body)
+	"uC" '(:ignore t :which-key "Config Files" )
+	    "uCe" `("Elisp Dir" . (lambda () (interactive) (ranger ,dotemacs-elisp-dir)))
+	    "uCi" `("init.el" . (lambda () (interactive) (find-file ,dotemacs-init))) 
+
+    "w" '(:ignore t :which-key "Windows")
+	"wv" '("Vertical Split" . split-window-vertically-and-focus)
+	"wh" '("Horizontal Split" . split-window-horizontally-and-focus)
+	"wx" '("Close Window" . evil-window-delete)
+    )
+
+  ;; DAP Keybindings
+  (general-define-key 
+    :keymaps 'dap-mode-map
+    "<f5>" 'dap-continue
+    "<f10>" 'dap-next
+    "<f11>" 'dap-step-in
+    "<f12>" 'dap-step-out
+    "C-<f5>" 'dap-disconnect
+    "<f8>" 'dap-breakpoint-toggle
+    "C-<f8>" 'dap-breakpoint-condition
+    "S-<f8>" 'dap-breakpoint-log-message
+    )
+
+  ;; Org Mode Keybindings in Normal, Visual, and Emacs 
+  (general-define-key 
+    :keymaps 'org-mode-map
+    :states 'normal
+    :prefix "SPC"
+
+	"oe" '("Export" . org-export-dispatch)
+	"od" '(:ignore t :which-key "Delete")
+	    "odl" '("Link" . org-delete-link)
 
 	"oG" '(:ignore t :which-key "Glossary")
 	    "oGc" '("Clear" . org-clear-glossary)
@@ -112,64 +188,14 @@
 	"oo" '("Outline" . (lambda () (interactive) (consult-org-heading "-definition" nil)))
 	"or" '("Refile" . org-refile)
 
-	"os" '(:ignore t :which-key "Store")
-	    "osl" '("Link" . org-store-link)
-
 	"oT" '("Tag" . org-set-tags-command)
-	"ot" '("Todo" . org-todo)
+	"ot" '("Todo State" . org-todo)
 
 	"ox" '(:ignore t :which-key "Execute")
 	    "oxb" '("Buffer" . org-babel-execute-buffer)
 	    "oxs" '("Source" . org-babel-execute-src-block)
 	    "oxt" '("Tree" . org-babel-execute-subtree)
-
-    "p" '(:ignore t :which-key "Project")
-	"pb" '("Buffers" . consult-project-buffer)
-	"pd" `("Dired" . (lambda () (interactive) (ranger (project-root (project-current t))))) 
-	
-	"pf" '(:ignore t :which-key "Find")
-	    "pff" '("Find File" . project-find-file) 
-	    "pfd" '("Find Dir" . project-find-dir) 
-
-	"pg" '("Grep" . consult-ripgrep)
-	"pm" '("Magit" . magit-project-status) 
-	"ps"  '("Switch Project" . project-switch-project) 
-
-    "r" '(:ignore t :which-key "Ranger (Dir)") ;; Directory
-	"ro" '("Open" . ranger) 
-
-
-    "s" '(:ignore t :which-key "Shell")
-	"sc" '("Command". eshell-command)
-	"so" '("eShell" . eshell)
-	"sp" '("eShell Project" . project-eshell) 
-
-    "t" '(:ignore t :which-key "Tabs" )
-	"to" '("Open Tab" . tab-new )
-	"tx" '("Close Tab" . tab-close )
-	"tn" '("Next Tab" . tab-next )
-	"tp" '("Previous Tab" . tab-previous )
-	"tm" '("Menu Tab" . tab-switcher )
-
-    "u" '(:ignore t :which-key "Utilities" )
-	"uc" '(:ignore t :which-key "Clipboard" )
-	    "ucy" '("Yank" . copy-to-x-clipboard)
-	    "ucp" '("Paste" . paste-from-x-clipboard)
-	"uk" '("Kill Ring Paste" . yank-pop)
-	"uz" '("Zoom In/Out" . hydra-text-scale/body)
-	"uC" '(:ignore t :which-key "Config Files" )
-	    "uCe" `("Elisp Dir" . (lambda () (interactive) (ranger ,dotemacs-elisp-dir)))
-	    "uCi" `("init.el" . (lambda () (interactive) (find-file ,dotemacs-init))) 
-
-    "w" '(:ignore t :which-key "Windows")
-	"wv" '("Vertical Split" . split-window-vertically-and-focus)
-	"wh" '("Horizontal Split" . split-window-horizontally-and-focus)
-	"wx" '("Close Window" . evil-window-delete)
-
-
     )
-
-
 
   (general-create-definer bjl/global-keys
     :keymaps '(normal visual emacs))
@@ -178,8 +204,9 @@
     "<down>" '(evil-window-down 1 :which-key "Top Window")
     "<left>" '(evil-window-left 1 :which-key "Top Window")
     "<right>" '(evil-window-right 1 :which-key "Top Window")
-    "M-n" '(next-history-element :which-key "Next Completion")
-    "M-p" '(previous-history-element :which-key "Previous Completion"))
+    "C-n" '(next-history-element :which-key "Next Completion")
+    "C-p" '(previous-history-element :which-key "Previous Completion")
+    "-" '(ranger :which-key t))
   )
 
 

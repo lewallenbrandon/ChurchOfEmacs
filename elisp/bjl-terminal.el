@@ -38,8 +38,6 @@
         eshell-hist-ignoredups t
         eshell-scroll-to-bottom-on-input t))
 
-(use-package eshell-git-prompt
-  :after eshell)
 
 (use-package eshell
   :hook (eshell-first-time-mode . bjl/configure-eshell)
@@ -49,7 +47,7 @@
     (setq eshell-destroy-buffer-when-process-dies t)
     (setq eshell-visual-commands '("htop" "zsh" "vim")))
 
-  (eshell-git-prompt-use-theme 'powerline))
+  )
 
 
 

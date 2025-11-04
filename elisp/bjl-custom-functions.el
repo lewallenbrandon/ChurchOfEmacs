@@ -200,4 +200,16 @@
 				"~/org/"
 				nil nil nil)))))
 
+
+;; Eshell Functions
+
+;; Rerun the last eshell command
+(defun eshell-rerun-last-command ()
+  (interactive)
+  (with-current-buffer (get-buffer "*eshell*")
+    (eshell-return-to-prompt)
+    (eshell-previous-input 1)
+    (eshell-send-input)
+    ))
+
 (provide 'bjl-custom-functions)

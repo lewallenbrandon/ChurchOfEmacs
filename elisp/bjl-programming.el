@@ -17,8 +17,19 @@
 (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
 
 ;; optionally if you want to use debugger
-(use-package dap-mode)
-(use-package dap-cpptools)
+(use-package dap-mode
+  :ensure t :after lsp-mode
+  :config
+  (require 'dap-python)
+  (require 'dap-ui)
+  (dap-mode t)
+  (dap-ui-mode t)
+  ;; enables mouse hover support
+  (dap-tooltip-mode t)
+  ;; if it is not enabled `dap-mode' will use the minibuffer.
+  (tooltip-mode t))
+;;(setopt dap-auto-configure-mode t)
+;;(use-package dap-cpptools)
 
 ;; optional if you want which-key integration
 (use-package which-key
@@ -28,26 +39,20 @@
 (use-package rustic)
 (use-package wgrep)
 
-(use-package csharp-mode
-  :mode "\\.cs$"
-  :hook
-  (csharp-mode-hook . subword-mode))
-
 (setq c-basic-offset 4)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq indent-line-function 'insert-tab)
 
-;;(use-package eglot
-;;  :commands (eglot eglot-ensure)
-;;  :hook ((csharp-mode . eglot-ensure)
-;;	 (python-mode . eglot-ensure)
-;;	 (rust-mode . eglot-ensure)
-;;	 (c-mode . eglot-ensure)
-;;	 (c++-mode . eglot-ensure))
-;;  :config
-;;  (add-to-list 'eglot-server-programs
-;;	       '(csharp-mode . ("csharp-ls"))))
+(use-package eglot
+  :defer t
+  :commands (eglot eglot-ensure)
+  :hook (
+	 (python-mode . eglot-ensure)
+	 (rust-mode . eglot-ensure)
+	 (c-mode . eglot-ensure)
+	 (c++-mode . eglot-ensure))
+	       )
 
 (use-package exec-path-from-shell)
 (when (memq window-system '(mac ns x))
@@ -64,23 +69,33 @@
   ;; (dap-python-executable "python3")
   (dap-python-debugger 'debugpy)
   :config
-  (require 'dap-python))
+  (require 'dap-python)
+  (setq dap-python-debugger 'debugpy))
 
 (use-package pyvenv
   :after python-mode
   :config
   (pyvenv-mode 1))
 
+(use-package pipenv
+  :hook (python-mode . pipenv-mode)
+  :init
+  (setq
+   pipenv-projectile-after-switch-function
+   #'pipenv-projectile-after-switch-extended))
+
+(use-package direnv)
+
 (use-package corfu
   ;; Optional customizations
   :custom
-  ;; (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+  (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
   (corfu-auto t)                 ;; Enable auto completion
   ;; (corfu-separator ?\s)          ;; Orderless field separator
   ;; (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
   ;; (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
   ;; (corfu-preview-current nil)    ;; Disable current candidate preview
-  ;; (corfu-preselect 'prompt)      ;; Preselect the prompt
+  ;;(corfu-preselect 'prompt)      ;; Preselect the prompt
   ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
   ;; (corfu-scroll-margin 5)        ;; Use scroll margin
 
@@ -92,10 +107,21 @@
   ;; Recommended: Enable Corfu globally.  This is recommended since Dabbrev can
   ;; be used globally (M-/).  See also the customization variable
   ;; `global-corfu-modes' to exclude certain modes.
+  (setq corfu-popupinfo-delay 0.7)
+  (corfu-popupinfo-mode)
+  :bind
+  ;; This section binds the keys specifically within the 'corfu-map'
+  (:map corfu-map
+        ("C-n" . corfu-next)        ; Move to the next candidate
+        ("C-p" . corfu-previous)    ; Move to the previous candidate
+        ;; Optional: You might also want to bind 'Enter' to insert the selected
+        ;; candidate and/or 'Tab' to explicitly trigger completion
+        ("C-y" . corfu-insert)
+        ;; ("TAB" . corfu-complete) 
+        )
   :init
   (global-corfu-mode)
-  (setq corfu-popupinfo-delay 0.7)
-  (corfu-popupinfo-mode))
+  )
 
 ;; A few more useful configurations...
 (use-package emacs
@@ -126,13 +152,18 @@
 ;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
 (use-package forge
   :after magit)
-(global-diff-hl-mode)
+;;(global-diff-hl-mode)
+
+;;(use-package copilot
+;;  :quelpa (copilot :fetcher github
+;;                   :repo "copilot-emacs/copilot.el"
+;;                   :branch "main"
+;;                   :files ("*.el")))
 
 (use-package copilot
-  :quelpa (copilot :fetcher github
-                   :repo "copilot-emacs/copilot.el"
-                   :branch "main"
-                   :files ("*.el")))
+  :vc (:url "https://github.com/copilot-emacs/copilot.el"
+            :rev :newest
+            :branch "main"))
 
 (add-hook 'prog-mode-hook 'copilot-mode)
 (define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)

@@ -1,5 +1,0 @@
-#+TITLE: %^{TITLE}
-#+Author: Brandon Lewallen
-#+Email: lewallenbrandon@gmail.com 
-
-%?

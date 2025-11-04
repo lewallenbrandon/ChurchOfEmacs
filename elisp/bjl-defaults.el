@@ -11,7 +11,7 @@
 (setq inhibit-startup-message t)
 
 ;; Hodge podge of settings
-(setq display-line-numbers-type 'relative) ; Relatively and Absolutely Correct way to Display Line Numbers
+;;(setq display-line-numbers-type 'relative) ; Relatively and Absolutely Correct way to Display Line Numbers
 (global-display-line-numbers-mode 1) ; Display the Line Numbers
 (column-number-mode)        ; Display a column number 
 (scroll-bar-mode -1)        ; Disable visible scrollbar
@@ -30,7 +30,6 @@
     (let ((dir (file-name-directory filename)))
       (unless (file-exists-p dir)
         (make-directory dir t)))))
-
 
 (use-package eterm-256color
   :hook (term-mode . eterm-256color-mode))

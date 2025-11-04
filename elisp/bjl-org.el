@@ -18,15 +18,18 @@
 			     (org-agenda-files :maxlevel . 9)))
   (setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
   (setq org-refile-use-outline-path t)                  ; Show full paths for refiling
- 
+
   (setq org-agenda-start-with-log-mode t)
   (setq org-export-coding-system 'utf-8)
   (setq org-log-done 'time)
   (setq org-log-into-drawer t)
   (setq org-export-with-broken-links 1)
-  `(setq org-default-notes-file ,org-personal-notes)
+  (setq org-default-notes-file org-journal-notes)
 
-  `(setq org-agenda-files (directory-files-recursively ,org-dir "org$"))
+  (setq org-agenda-files  (directory-files-recursively org-notes-dir "org$"))
+
+
+  
   (require 'org-habit)
   (require 'doct)
   (require 'ox-md)
@@ -62,7 +65,7 @@
      (shell . t)
      (C . t)))
 
-  (global-org-modern-mode)
+  ;;(global-org-modern-mode)
 
   (defun capture-report-date-file (path) (let ((name (read-string "Name: "))) (expand-file-name (format "%s.org"  name) path)))
 
@@ -98,16 +101,16 @@
 	      )
 	)
 
-  
-  
-  
-  
+
+
+
+
   (push '("conf-unix" . conf-unix) org-src-lang-modes))
 
 ;; I prefer the exports to go to its own subdirectory
 (defun org-export-output-file-name-modified (orig-fun extension &optional subtreep pub-dir)
   (unless pub-dir
-    (setq pub-dir "~/org_exports/")
+    (setq pub-dir org-exports-dir)
     (unless (file-directory-p pub-dir)
       (make-directory pub-dir)))
   (apply orig-fun extension subtreep pub-dir nil))

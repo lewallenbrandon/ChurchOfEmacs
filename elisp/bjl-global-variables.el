@@ -16,19 +16,24 @@
 (defvar dotemacs-elisp-finalize (concat dotemacs-elisp-dir "bjl-finalize.el"))
 
 (defvar org-dir "~/org/")
-(defvar org-personal-notes "~/org/Personal.org")
 
-(defvar org-templates-dir "~/org_templates/")
+(defvar org-templates-dir (concat org-dir "org-templates/"))
 (defvar org-templates-code-snippet (concat org-templates-dir "code_snippet.txt"))
 (defvar org-templates-book-notes (concat org-templates-dir "book_notes.txt"))
 (defvar org-templates-project-outline (concat org-templates-dir "project_outline.txt"))
 (defvar org-templates-minimal (concat org-templates-dir "minimal.txt"))
- 
-(defvar org-exports-dir "~/org_exports/")
 
-(defvar org-images-dir "~/org-images/")
+(defvar org-css-dir "~/org/org-css/")
+(defvar org-exports-dir "~/org/org-exports/")
+
+(defvar org-images-dir "~/org/org-images/")
 (defvar org-images-subdir-cache nil)
 
-(defvar org-css-dir "~/org-css/")
+(defvar org-notes-dir "~/org/org-notes/")
+(defvar org-book-notes (concat org-notes-dir "Books/"))
+(defvar org-misc-notes (concat org-notes-dir "Misc/"))
+(defvar org-meeting-notes (concat org-notes-dir "Meetings/"))
+(defvar org-presentation-notes (concat org-notes-dir "Presentations/"))
+(defvar org-journal-notes (concat org-notes-dir "Journal.org"))
 
 (provide 'bjl-global-variables)
