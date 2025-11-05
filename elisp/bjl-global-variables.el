@@ -22,6 +22,7 @@
 (defvar org-templates-book-notes (concat org-templates-dir "book_notes.txt"))
 (defvar org-templates-project-outline (concat org-templates-dir "project_outline.txt"))
 (defvar org-templates-minimal (concat org-templates-dir "minimal.txt"))
+(defvar org-templates-workitem (concat org-templates-dir "work_item.txt"))
 
 (defvar org-css-dir "~/org/org-css/")
 (defvar org-exports-dir "~/org/org-exports/")
@@ -32,6 +33,7 @@
 (defvar org-notes-dir "~/org/org-notes/")
 (defvar org-book-notes (concat org-notes-dir "Books/"))
 (defvar org-misc-notes (concat org-notes-dir "Misc/"))
+(defvar org-workitem-notes (concat org-notes-dir "WorkItems/"))
 (defvar org-meeting-notes (concat org-notes-dir "Meetings/"))
 (defvar org-presentation-notes (concat org-notes-dir "Presentations/"))
 (defvar org-journal-notes (concat org-notes-dir "Journal.org"))

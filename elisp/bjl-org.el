@@ -67,20 +67,29 @@
 
   ;;(global-org-modern-mode)
 
-  (defun capture-report-date-file (path) (let ((name (read-string "Name: "))) (expand-file-name (format "%s.org"  name) path)))
+  (defun capture-report-date-file (path) (let ((name (read-string "Name: ")))
+                                           (expand-file-name (format "%s.org"  name) path)))
 
   (setq org-capture-templates
 	(doct `(
 
-		("Outline"
-		   :keys "o"
-		   :function (lambda () (find-file (capture-report-date-file org-dir)))
-		   :type plain
+		("Meeting"
+		   :keys "m"
+		   :function (lambda () (let ((file
+                                       (org-capture-new-file org-meeting-notes)))
+                                      (set-buffer (find-file-noselect file t t))
+                                      (write-file file) file))
+
+		   :type plain 
 		   :template-file  ,org-templates-project-outline)
 
 		("Book Notes"
 		   :keys "b"
-		   :function (lambda () (find-file (capture-report-date-file org-dir)))
+		   :function (lambda () (let ((file
+                                       (org-capture-new-file org-book-notes)))
+                                      (set-buffer (find-file-noselect file t t))
+                                      (write-file file) file))
+
 		   :type plain
 		   :template-file  ,org-templates-book-notes)
 
@@ -92,13 +101,25 @@
 		   :template-file ,org-templates-code-snippet)
 
 		  ("Minimal"
-		   :keys "m"
-		   :function (lambda () (find-file (capture-report-date-file org-dir)))
+		   :keys "M"
+		   :function (lambda () (let ((file
+                                       (org-capture-new-file org-misc-notes)))
+                                      (set-buffer (find-file-noselect file t t))
+                                      (write-file file) file))
 		   :type plain
 		   :template-file ,org-templates-minimal)
 
+		  ("Work Item"
+		   :keys "w"
+		   :function (lambda () (let ((file
+                                       (org-capture-new-file org-workitem-notes)))
+                                      (set-buffer (find-file-noselect file t t))
+                                      (write-file file) file))
+		   :type plain
+		   :template-file ,org-templates-workitem)
+
 		 )
-	      )
+	    )
 	)
 
 

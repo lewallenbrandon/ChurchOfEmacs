@@ -194,12 +194,8 @@
      ((string-equal extension "py") "python")
      )))
 
-(defun open-new-project-file ()
-  (interactive)
-   (let ((fpath (read-file-name "File name: "
-				"~/org/"
-				nil nil nil)))))
-
+ (defun org-capture-new-file (path) (let ((name (read-string "Name: ")))
+                                           (expand-file-name (format "%s.org"  name) path)))
 
 ;; Eshell Functions
 
@@ -211,5 +207,7 @@
     (eshell-previous-input 1)
     (eshell-send-input)
     ))
+
+
 
 (provide 'bjl-custom-functions)
