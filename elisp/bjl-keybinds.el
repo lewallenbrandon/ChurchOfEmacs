@@ -86,15 +86,15 @@
 	"oc" '("Capture" . org-capture)
 
 	"of" '(:ignore t :which-key "Files")
-	    "ofa" `("Agenda" . (lambda () (interactive) (ranger ,org-dir)))
-	    "ofb" `("Books" . (lambda () (interactive) (ranger ,org-book-notes)))
-	    "ofm" `("Meetings" . (lambda () (interactive) (ranger ,org-meeting-notes)))
-	    "ofM" `("Misc" . (lambda () (interactive) (ranger ,org-misc-notes)))
-	    "ofp" `("Presentations" . (lambda () (interactive) (ranger ,org-presentation-notes)))
-	    "ofe" `("Exports" . (lambda () (interactive) (ranger ,org-exports-dir)))
+	    "ofa" `("Agenda" . (lambda () (interactive) (dired ,org-dir)))
+	    "ofb" `("Books" . (lambda () (interactive) (dired ,org-book-notes)))
+	    "ofm" `("Meetings" . (lambda () (interactive) (dired ,org-meeting-notes)))
+	    "ofM" `("Misc" . (lambda () (interactive) (dired ,org-misc-notes)))
+	    "ofp" `("Presentations" . (lambda () (interactive) (dired ,org-presentation-notes)))
+	    "ofe" `("Exports" . (lambda () (interactive) (dired ,org-exports-dir)))
 	    "ofj" `("Journal" . (lambda () (interactive) (find-file ,org-journal-notes))) 
 	    "ofr" '("Refresh Agenda" . refresh-org-agenda-files) 
-	    "oft" `("Templates" . (lambda () (interactive) (ranger ,org-templates-dir))) 
+	    "oft" `("Templates" . (lambda () (interactive) (dired ,org-templates-dir))) 
 
 	"os" '(:ignore t :which-key "Store")
 	    "osl" '("Link" . org-store-link)
@@ -102,7 +102,7 @@
 
     "p" '(:ignore t :which-key "Project")
 	"pb" '("Buffers" . consult-project-buffer)
-	"pd" `("Dired" . (lambda () (interactive) (ranger (project-root (project-current t))))) 
+	"pd" `("Dired" . (lambda () (interactive) (dired (project-root (project-current t))))) 
 	
 	"pf" '(:ignore t :which-key "Find")
 	    "pff" '("Find File" . project-find-file) 
@@ -140,7 +140,7 @@
 	"uk" '("Kill Ring Paste" . yank-pop)
 	"uz" '("Zoom In/Out" . hydra-text-scale/body)
 	"uC" '(:ignore t :which-key "Config Files" )
-	    "uCe" `("Elisp Dir" . (lambda () (interactive) (ranger ,dotemacs-elisp-dir)))
+	    "uCe" `("Elisp Dir" . (lambda () (interactive) (dired ,dotemacs-elisp-dir)))
 	    "uCi" `("init.el" . (lambda () (interactive) (find-file ,dotemacs-init))) 
 
     "w" '(:ignore t :which-key "Windows")
@@ -161,6 +161,11 @@
     "C-<f8>" 'dap-breakpoint-condition
     "S-<f8>" 'dap-breakpoint-log-message
     )
+
+  ;; Dired Keybindings
+
+   
+
 
   ;; Org Mode Keybindings in Normal, Visual, and Emacs 
   (general-define-key 
@@ -207,7 +212,7 @@
     "<right>" '(evil-window-right 1 :which-key "Top Window")
     "C-n" '(next-history-element :which-key "Next Completion")
     "C-p" '(previous-history-element :which-key "Previous Completion")
-    "-" '(ranger :which-key t))
+    "-" '(dirvish :which-key t))
   )
 
 
