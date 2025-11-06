@@ -43,7 +43,7 @@
     "cw" '("Workspace" . lsp-find-workspace-symbol)
 
     "f" '(:ignore t :which-key "Find")
-	"ff" '("Open" . find-file)
+	"ff" '("Open" . consult-find)
     "f/" '("Search" . consult-isearch-history)
     "fm" '("Macros" . consult-kmacro)
     "fs" '("String" . consult-line)
@@ -52,6 +52,7 @@
     "F" '(:ignore t :which-key "Files")
 	"Fc" '("Copy" . copy-file) 
 	"Fd" '("Delete" . delete-file) 
+	"Fn" '("New" . find-file) 
 	"Fr" '("Rename" . rename-file) 
 
     "g" '(:ignore t :which-key "Git")
