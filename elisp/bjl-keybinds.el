@@ -1,7 +1,7 @@
 ;; Keybinding Stuff
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
+(evil-set-initial-state 'dired-mode 'emacs)
 (use-package general
   :after evil
   :config
@@ -162,7 +162,15 @@
     "S-<f8>" 'dap-breakpoint-log-message
     )
 
-  ;; Dired Keybindings
+  ;; Dired and Dired-X Keybindings
+  (general-define-key 
+    :keymaps 'dired-mode-map
+    "j" 'dired-next-line
+    "k" 'dired-previous-line
+    "/" 'evil-search-forward
+    "n" 'evil-search-next
+    "N" 'evil-search-previous
+    )
 
    
 
@@ -212,9 +220,8 @@
     "<right>" '(evil-window-right 1 :which-key "Top Window")
     "C-n" '(next-history-element :which-key "Next Completion")
     "C-p" '(previous-history-element :which-key "Previous Completion")
-    "-" '(dirvish :which-key t))
+    "-" '((lambda () (interactive) (if (eq major-mode 'dired-mode) (dired-up-directory) (dired "."))) :which-key t))
   )
-
 
 
 (use-package evil
